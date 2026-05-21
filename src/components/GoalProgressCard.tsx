@@ -139,7 +139,7 @@ export default function GoalProgressCard() {
             </motion.div>
             <div>
               <h3 className="text-lg font-black text-slate-800 dark:text-neutral-100 tracking-tight">Maqsad Progressi</h3>
-              <p className="text-sm text-slate-500 dark:text-neutral-300 font-bold">Jamg'arma ko'rsatkichi</p>
+              <p className="text-sm text-slate-750 dark:text-neutral-200 font-extrabold">Jamg'arma ko'rsatkichi</p>
             </div>
           </div>
           <motion.div
@@ -177,18 +177,18 @@ export default function GoalProgressCard() {
 
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-[10px] text-slate-500 dark:text-neutral-300 block uppercase font-black tracking-wider mb-0.5">Jamg'arilgan</span>
-              <span className="text-emerald-600 dark:text-emerald-400 text-2xl sm:text-3xl font-black">
+              <span className="text-[10px] text-slate-750 dark:text-neutral-200 block uppercase font-extrabold tracking-wider mb-0.5">Jamg'arilgan</span>
+              <span className="text-emerald-700 dark:text-emerald-400 text-2xl sm:text-3xl font-black">
                 {formatNumber(user.savedAmount)}
               </span>
-              <span className="text-emerald-600 dark:text-emerald-400 text-sm font-black ml-1">so'm</span>
+              <span className="text-emerald-700 dark:text-emerald-400 text-sm font-black ml-1">so'm</span>
             </div>
             <div className="text-right">
-              <span className="text-[10px] text-slate-500 dark:text-neutral-300 block uppercase font-black tracking-wider mb-0.5">Maqsad summasi</span>
-              <span className="text-slate-800 dark:text-neutral-100 text-2xl sm:text-3xl font-black">
+              <span className="text-[10px] text-slate-750 dark:text-neutral-200 block uppercase font-extrabold tracking-wider mb-0.5">Maqsad summasi</span>
+              <span className="text-slate-900 dark:text-neutral-100 text-2xl sm:text-3xl font-black">
                 {formatNumber(user.targetAmount)}
               </span>
-              <span className="text-slate-600 dark:text-neutral-400 text-sm font-black ml-1">so'm</span>
+              <span className="text-slate-800 dark:text-neutral-350 text-sm font-black ml-1">so'm</span>
             </div>
           </div>
         </div>
@@ -201,8 +201,8 @@ export default function GoalProgressCard() {
               onClick={() => setActiveTab(tab)}
               className={`relative flex-1 py-3.5 text-sm font-bold rounded-xl transition-colors cursor-pointer flex flex-col items-center justify-center gap-1 z-10 ${
                 activeTab === tab
-                  ? "text-slate-800 dark:text-white"
-                  : "text-slate-500 dark:text-neutral-400 hover:text-slate-700 dark:hover:text-neutral-300"
+                  ? "text-slate-900 dark:text-white"
+                  : "text-slate-750 dark:text-neutral-300 hover:text-slate-900 dark:hover:text-white"
               }`}
             >
               {activeTab === tab && (
@@ -215,7 +215,7 @@ export default function GoalProgressCard() {
               <span className="relative z-10 text-xs xs:text-sm font-black whitespace-nowrap">
                 {tab === "savings" ? "💰 Jamg'arma Yig'ish" : "📝 Kundalik Daftarcha"}
               </span>
-              <span className="relative z-10 text-[10px] text-slate-400 dark:text-neutral-500 font-medium hidden sm:inline">
+              <span className="relative z-10 text-[10px] text-slate-700 dark:text-neutral-300 font-black hidden sm:inline">
                 {tab === "savings" ? "(Maqsad uchun pul saqlash)" : "(Xarajat va daromadlar jurnali)"}
               </span>
             </button>
@@ -231,12 +231,12 @@ export default function GoalProgressCard() {
           className="px-4 py-3 bg-slate-50 dark:bg-neutral-900/50 border border-slate-150 dark:border-neutral-800 rounded-2xl mb-5 text-center"
         >
           {activeTab === "savings" ? (
-            <p className="text-sm text-slate-500 dark:text-neutral-400 font-medium leading-relaxed">
-              💡 <span className="font-extrabold text-slate-700 dark:text-neutral-300">Jamg'arma yig'ish</span> — orzuingizdagi maqsadga erishish uchun hamyoningizdagi puldan alohida chetga (seysga) olib qo'yish.
+            <p className="text-sm text-slate-750 dark:text-neutral-200 font-semibold leading-relaxed">
+              💡 <span className="font-black text-slate-900 dark:text-white">Jamg'arma yig'ish</span> — orzuingizdagi maqsadga erishish uchun hamyoningizdagi puldan alohida chetga (seysga) olib qo'yish.
             </p>
           ) : (
-            <p className="text-sm text-slate-500 dark:text-neutral-400 font-medium leading-relaxed">
-              💡 <span className="font-extrabold text-slate-700 dark:text-neutral-300">Kundalik Daftarcha</span> — har kungi daromadlaringiz (cho'ntak puli, sovg'alar) va xarajatlaringizni (tushlik, yo'lkira, o'yinlar) yozib borish jurnali.
+            <p className="text-sm text-slate-750 dark:text-neutral-200 font-semibold leading-relaxed">
+              💡 <span className="font-black text-slate-900 dark:text-white">Kundalik Daftarcha</span> — har kungi daromadlaringiz (cho'ntak puli, sovg'alar) va xarajatlaringizni (tushlik, yo'lkira, o'yinlar) yozib borish jurnali.
             </p>
           )}
         </motion.div>
@@ -269,10 +269,10 @@ export default function GoalProgressCard() {
                 {/* Savings Input */}
                 <div className="space-y-3">
                   <div className="text-center">
-                    <label className="block text-sm text-slate-800 dark:text-neutral-200 font-black mb-1">
+                    <label className="block text-sm text-slate-950 dark:text-white font-black mb-1">
                       Jamg'armaga pul o'tkazish summasi
                     </label>
-                    <p className="text-xs text-slate-500 dark:text-neutral-400 font-bold">Maqsadingiz uchun chetga qo'ymoqchi bo'lgan miqdorni kiriting</p>
+                    <p className="text-xs text-slate-700 dark:text-neutral-200 font-extrabold">Maqsadingiz uchun chetga qo'ymoqchi bo'lgan miqdorni kiriting</p>
                   </div>
                   
                   <div className="relative max-w-md mx-auto">
@@ -284,9 +284,9 @@ export default function GoalProgressCard() {
                         setSaveError("");
                       }}
                       placeholder="0"
-                      className="w-full pl-4 pr-12 xs:pl-6 xs:pr-16 py-4 xs:py-6 rounded-2xl bg-slate-50 dark:bg-neutral-900 border-2 border-slate-200 dark:border-neutral-800 text-slate-800 dark:text-white placeholder-slate-350 dark:placeholder-neutral-700 focus:outline-none focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 focus:scale-[1.01] transition-all text-2xl xs:text-3xl sm:text-4xl font-black text-center shadow-inner"
+                      className="w-full pl-4 pr-12 xs:pl-6 xs:pr-16 py-4 xs:py-6 rounded-2xl bg-slate-50 dark:bg-neutral-900 border-2 border-slate-200 dark:border-neutral-800 text-slate-950 dark:text-white placeholder-slate-500 dark:placeholder-neutral-400 focus:outline-none focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 focus:scale-[1.01] transition-all text-2xl xs:text-3xl sm:text-4xl font-black text-center shadow-inner"
                     />
-                    <div className="absolute right-4 xs:right-6 top-1/2 -translate-y-1/2 text-slate-400 dark:text-neutral-500 font-black text-sm xs:text-base sm:text-lg pointer-events-none select-none">
+                    <div className="absolute right-4 xs:right-6 top-1/2 -translate-y-1/2 text-slate-800 dark:text-neutral-200 font-black text-sm xs:text-base sm:text-lg pointer-events-none select-none">
                       so'm
                     </div>
                   </div>
@@ -417,8 +417,8 @@ export default function GoalProgressCard() {
 
                 {/* Title Input */}
                 <div>
-                  <label className="block text-sm text-slate-600 dark:text-neutral-400 font-bold mb-1.5">Xarid / Manba nomi</label>
-                  <p className="text-xs text-slate-400 dark:text-neutral-500 mb-2">
+                  <label className="block text-sm text-slate-850 dark:text-neutral-100 font-extrabold mb-1.5">Xarid / Manba nomi</label>
+                  <p className="text-xs text-slate-700 dark:text-neutral-300 font-bold mb-2">
                     {txType === "expense" ? "Nimaga pul sarfladingiz?" : "Pul qayerdan keldi?"}
                   </p>
                   <input
@@ -428,15 +428,15 @@ export default function GoalProgressCard() {
                     id="ledger-title-input"
                     placeholder={txType === "expense" ? "Masalan: Tushlik ovqat" : "Masalan: Oylik / Cho'ntak puli"}
                     required
-                    className="w-full px-5 py-4 rounded-2xl bg-white dark:bg-neutral-950 border-2 border-slate-200 dark:border-neutral-800 text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-neutral-600 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:scale-[1.02] transition-all text-base font-semibold shadow-sm"
+                    className="w-full px-5 py-4 rounded-2xl bg-white dark:bg-neutral-950 border-2 border-slate-200 dark:border-neutral-800 text-slate-950 dark:text-white placeholder-slate-500 dark:placeholder-neutral-400 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:scale-[1.02] transition-all text-base font-bold shadow-sm"
                   />
                 </div>
 
                 {/* Amount Input */}
                 <div className="space-y-3">
                   <div className="text-center">
-                    <label className="block text-sm text-slate-600 dark:text-neutral-400 font-extrabold mb-1">Summa (so'm)</label>
-                    <p className="text-xs text-slate-400 dark:text-neutral-500">Miqdorni so'mda kiriting</p>
+                    <label className="block text-sm text-slate-850 dark:text-neutral-100 font-black mb-1">Summa (so'm)</label>
+                    <p className="text-xs text-slate-700 dark:text-neutral-200 font-extrabold">Miqdorni so'mda kiriting</p>
                   </div>
 
                   <div className="relative max-w-md mx-auto">
@@ -446,9 +446,9 @@ export default function GoalProgressCard() {
                       onChange={(e) => setTxAmount(e.target.value)}
                       placeholder="0"
                       required
-                      className="w-full pl-4 pr-12 xs:pl-6 xs:pr-16 py-4 xs:py-6 rounded-2xl bg-slate-50 dark:bg-neutral-900 border-2 border-slate-200 dark:border-neutral-800 text-slate-800 dark:text-white placeholder-slate-350 dark:placeholder-neutral-700 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:scale-[1.01] transition-all text-2xl xs:text-3xl sm:text-4xl font-black text-center shadow-inner"
+                      className="w-full pl-4 pr-12 xs:pl-6 xs:pr-16 py-4 xs:py-6 rounded-2xl bg-slate-50 dark:bg-neutral-900 border-2 border-slate-200 dark:border-neutral-800 text-slate-950 dark:text-white placeholder-slate-500 dark:placeholder-neutral-400 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:scale-[1.01] transition-all text-2xl xs:text-3xl sm:text-4xl font-black text-center shadow-inner"
                     />
-                    <div className="absolute right-4 xs:right-6 top-1/2 -translate-y-1/2 text-slate-400 dark:text-neutral-500 font-black text-sm xs:text-base sm:text-lg pointer-events-none select-none">
+                    <div className="absolute right-4 xs:right-6 top-1/2 -translate-y-1/2 text-slate-800 dark:text-neutral-200 font-black text-sm xs:text-base sm:text-lg pointer-events-none select-none">
                       so'm
                     </div>
                   </div>
@@ -473,7 +473,7 @@ export default function GoalProgressCard() {
 
                 {/* Category Pill Selector */}
                 <div>
-                  <label className="block text-sm text-slate-600 dark:text-neutral-400 font-bold mb-2">Turkum / Kategoriya</label>
+                  <label className="block text-sm text-slate-850 dark:text-neutral-100 font-extrabold mb-2">Turkum / Kategoriya</label>
                   <div className="flex flex-wrap gap-2.5">
                     {categories.map((cat) => (
                       <motion.button
@@ -510,7 +510,7 @@ export default function GoalProgressCard() {
 
               {/* Transaction List */}
               <div className="flex-1 flex flex-col justify-between">
-                <h5 className="text-sm font-black text-slate-400 dark:text-neutral-500 uppercase tracking-wider mb-3">Tranzaksiyalar tarixi</h5>
+                <h5 className="text-sm font-black text-slate-750 dark:text-neutral-350 uppercase tracking-wider mb-3">Tranzaksiyalar tarixi</h5>
 
                 <div className="overflow-y-auto max-h-[180px] space-y-2.5 pr-1">
                   {user.transactions.length === 0 ? (
@@ -520,7 +520,7 @@ export default function GoalProgressCard() {
                       className="text-center py-8"
                     >
                       <span className="text-3xl block mb-2">📭</span>
-                      <p className="text-sm text-slate-400 dark:text-neutral-500 font-medium">Hali hech qanday xarajat yoki daromad kiritilmadi.</p>
+                      <p className="text-sm text-slate-650 dark:text-neutral-300 font-bold">Hali hech qanday xarajat yoki daromad kiritilmadi.</p>
                     </motion.div>
                   ) : (
                     <AnimatePresence>
@@ -543,8 +543,8 @@ export default function GoalProgressCard() {
                               {tx.type === "income" ? <TrendingUp className="w-5 h-5 flex-shrink-0" /> : <TrendingDown className="w-5 h-5 flex-shrink-0" />}
                             </div>
                             <div className="min-w-0">
-                              <p className="font-bold text-sm text-slate-700 dark:text-neutral-200 leading-snug truncate max-w-[120px] xs:max-w-[160px] sm:max-w-none">{tx.title}</p>
-                              <p className="text-xs text-slate-400 dark:text-neutral-500 font-semibold mt-0.5">
+                              <p className="font-black text-sm text-slate-900 dark:text-neutral-100 leading-snug truncate max-w-[120px] xs:max-w-[160px] sm:max-w-none">{tx.title}</p>
+                              <p className="text-xs text-slate-700 dark:text-neutral-350 font-bold mt-0.5">
                                 {categoryEmojis[tx.category] || "📦"} {tx.category} • {tx.date}
                               </p>
                             </div>

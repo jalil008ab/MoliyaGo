@@ -1057,7 +1057,7 @@ export default function AISituationCard() {
                   <div className="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-950/30 flex items-center justify-center mx-auto mb-2 shadow-inner">
                     <span className="text-base">🪙</span>
                   </div>
-                  <p className="text-[10px] font-bold text-slate-400 dark:text-neutral-500 uppercase tracking-wider">
+                  <p className="text-[10px] font-black text-slate-700 dark:text-neutral-350 uppercase tracking-wider">
                     Yig&apos;ilgan tangalar
                   </p>
                   <p className="text-base font-extrabold text-amber-600 dark:text-amber-400 mt-0.5">
@@ -1070,7 +1070,7 @@ export default function AISituationCard() {
                   <div className="w-8 h-8 rounded-lg bg-pink-100 dark:bg-pink-950/30 flex items-center justify-center mx-auto mb-2 text-pink-600 dark:text-pink-400 shadow-inner">
                     <Sparkles className="w-4 h-4" />
                   </div>
-                  <p className="text-[10px] font-bold text-slate-400 dark:text-neutral-500 uppercase tracking-wider">
+                  <p className="text-[10px] font-black text-slate-700 dark:text-neutral-350 uppercase tracking-wider">
                     Yig&apos;ilgan XP
                   </p>
                   <p className="text-base font-extrabold text-pink-600 dark:text-pink-400 mt-0.5">
@@ -1083,7 +1083,7 @@ export default function AISituationCard() {
                   <div className="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-950/30 flex items-center justify-center mx-auto mb-2 text-emerald-600 dark:text-emerald-400 shadow-inner">
                     <TrendingUp className="w-4 h-4" />
                   </div>
-                  <p className="text-[10px] font-bold text-slate-400 dark:text-neutral-500 uppercase tracking-wider">
+                  <p className="text-[10px] font-black text-slate-700 dark:text-neutral-350 uppercase tracking-wider">
                     Tejash qarori
                   </p>
                   <p className="text-base font-extrabold text-emerald-600 dark:text-emerald-400 mt-0.5">

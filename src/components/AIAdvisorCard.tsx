@@ -133,10 +133,10 @@ export default function AIAdvisorCard() {
             </div>
             <div>
               <h3 className="text-base font-bold text-slate-800 dark:text-neutral-100">MoliyaGo AI Maslahatchi</h3>
-              <p className="text-xs text-slate-400 dark:text-neutral-400">Xarajatlar tahlili va tavsiyalar</p>
+              <p className="text-xs text-slate-700 dark:text-neutral-300 font-bold">Xarajatlar tahlili va tavsiyalar</p>
             </div>
           </div>
-          <div className="w-6 h-6 rounded-full bg-slate-100 dark:bg-neutral-800 flex items-center justify-center text-slate-400 dark:text-neutral-400 hover:text-slate-600 dark:hover:text-neutral-200 cursor-help shadow-sm" title="AI maslahatchi sizning kunlik xarajatlaringiz va jamg'armangizni o'rganib, maslahat beradi.">
+          <div className="w-6 h-6 rounded-full bg-slate-100 dark:bg-neutral-800 flex items-center justify-center text-slate-500 dark:text-neutral-300 hover:text-slate-700 dark:hover:text-neutral-100 cursor-help shadow-sm" title="AI maslahatchi sizning kunlik xarajatlaringiz va jamg'armangizni o'rganib, maslahat beradi.">
             <HelpCircle className="w-3.5 h-3.5" />
           </div>
         </div>
@@ -180,7 +180,7 @@ export default function AIAdvisorCard() {
                         ? "text-rose-700 dark:text-rose-455" 
                         : adviceType === "success" 
                         ? "text-emerald-700 dark:text-emerald-455" 
-                        : "text-slate-700 dark:text-neutral-250"
+                        : "text-slate-800 dark:text-neutral-100"
                     }`}>
                       {advice}
                     </p>
@@ -198,14 +198,14 @@ export default function AIAdvisorCard() {
               <Activity className="w-5 h-5 text-indigo-500" />
             </div>
             <div>
-              <p className="text-[10px] text-slate-400 dark:text-neutral-500 font-extrabold uppercase tracking-wider">Moliyaviy Salomatlik</p>
+              <p className="text-[10px] text-slate-700 dark:text-neutral-300 font-black uppercase tracking-wider">Moliyaviy Salomatlik</p>
               <div className="flex items-center gap-1.5 mt-0.5">
-                <span className="text-sm font-black text-slate-700 dark:text-neutral-200">Indeks:</span>
+                <span className="text-sm font-black text-slate-800 dark:text-neutral-100">Indeks:</span>
                 <span className={`text-xs font-black px-2 py-0.5 rounded-full bg-slate-100 dark:bg-neutral-900 border border-slate-200/50 dark:border-neutral-800 ${scoreInfo.color}`}>
                   {scoreInfo.status}
                 </span>
               </div>
-              <p className="text-[10px] text-slate-500 dark:text-neutral-450 mt-1 leading-relaxed font-semibold">
+              <p className="text-[10px] text-slate-700 dark:text-neutral-250 mt-1 leading-relaxed font-extrabold">
                 {scoreInfo.desc}
               </p>
             </div>
@@ -244,7 +244,7 @@ export default function AIAdvisorCard() {
               >
                 {scoreInfo.totalScore}
               </motion.span>
-              <span className="text-[8px] font-bold text-slate-400 dark:text-neutral-500 uppercase tracking-widest -mt-1">Ball</span>
+              <span className="text-[8px] font-black text-slate-700 dark:text-neutral-300 uppercase tracking-widest -mt-1">Ball</span>
             </div>
           </div>
         </div>
