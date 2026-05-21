@@ -9,6 +9,10 @@ function formatNumber(n: number): string {
   return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+function calculateLevel(xp: number): number {
+  return Math.floor(xp / 500) + 1;
+}
+
 function AnimatedCounter({
   target,
   duration = 1.5,
@@ -142,9 +146,18 @@ export default function HeroDashboardCard() {
                   <span className="text-xs font-bold text-emerald-600/70 dark:text-emerald-400/70">so'm</span>
                 </div>
               </div>
-              <p className="text-[10px] leading-relaxed text-slate-400 dark:text-neutral-500 font-semibold mt-3 pt-3 border-t border-slate-100 dark:border-neutral-800">
-                ℹ️ Cho'ntakdagi pulingiz — kundalik tushlik, yo'lkira yoki mayda xarajatlar uchun.
-              </p>
+              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-neutral-800/80 flex flex-col gap-1.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[9px] font-extrabold text-emerald-500 uppercase tracking-wider flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse inline-block shadow-sm" />
+                    Erkin Pul Oqimi
+                  </span>
+                  <span className="text-[9px] font-bold text-slate-400 dark:text-neutral-500 uppercase tracking-wider">Mavjud</span>
+                </div>
+                <p className="text-[10px] leading-relaxed text-slate-500 dark:text-neutral-400 font-medium">
+                  Cho'ntakdagi pulingiz — kundalik tushlik, yo'lkira yoki mayda xarajatlar uchun.
+                </p>
+              </div>
             </motion.div>
 
             {/* Card 2: Seys (Jamg'arma) */}
@@ -171,9 +184,35 @@ export default function HeroDashboardCard() {
                   <span className="text-xs font-bold text-cyan-600/70 dark:text-cyan-400/70">so'm</span>
                 </div>
               </div>
-              <p className="text-[10px] leading-relaxed text-slate-400 dark:text-neutral-500 font-semibold mt-3 pt-3 border-t border-slate-100 dark:border-neutral-800">
-                🔒 Orzungizdagi maqsad uchun alohida chetda yig'ilayotgan pul (seys singari).
-              </p>
+              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-neutral-800/80 flex flex-col gap-2">
+                {user.targetAmount > 0 ? (
+                  <>
+                    <div className="flex items-center justify-between text-[9px] font-bold">
+                      <span className="text-cyan-500 uppercase tracking-wider font-extrabold flex items-center gap-1">
+                        🎯 Maqsad sari
+                      </span>
+                      <span className="text-cyan-600 dark:text-cyan-400 font-extrabold">
+                        {Math.round(Math.min(100, (user.savedAmount / user.targetAmount) * 100))}%
+                      </span>
+                    </div>
+                    <div className="w-full h-1 bg-slate-100 dark:bg-neutral-800/50 rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: `${Math.min(100, (user.savedAmount / user.targetAmount) * 100)}%` }}
+                        transition={{ duration: 1, ease: "easeOut" }}
+                        className="h-full bg-gradient-to-r from-cyan-500 to-emerald-400 rounded-full"
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <div className="flex items-center gap-1 text-[9px] font-bold text-slate-400 dark:text-neutral-500 uppercase tracking-wider">
+                    🔒 Maqsad yaratilmagan
+                  </div>
+                )}
+                <p className="text-[10px] leading-relaxed text-slate-500 dark:text-neutral-400 font-medium">
+                  Orzungizdagi maqsad ({user.goalName || "seys"}) uchun alohida chetda yig'ilayotgan pul.
+                </p>
+              </div>
             </motion.div>
 
             {/* Card 3: XP (Bilim darajasi) */}
@@ -200,9 +239,27 @@ export default function HeroDashboardCard() {
                   <span className="text-xs font-bold text-pink-600/70 dark:text-pink-400/70">XP</span>
                 </div>
               </div>
-              <p className="text-[10px] leading-relaxed text-slate-400 dark:text-neutral-500 font-semibold mt-3 pt-3 border-t border-slate-100 dark:border-neutral-800">
-                🌟 Moliyaviy bilim/tajribangiz. Tranzaksiyalar yozganda va o'yinlarda oshadi.
-              </p>
+              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-neutral-800/80 flex flex-col gap-2">
+                <div className="flex items-center justify-between text-[9px] font-bold">
+                  <span className="text-pink-500 uppercase tracking-wider font-extrabold flex items-center gap-1">
+                    🌟 Level {calculateLevel(user.xp)} progress
+                  </span>
+                  <span className="text-pink-600 dark:text-pink-400 font-extrabold">
+                    {user.xp % 500}/500 XP
+                  </span>
+                </div>
+                <div className="w-full h-1 bg-slate-100 dark:bg-neutral-800/50 rounded-full overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: `${((user.xp % 500) / 500) * 100}%` }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    className="h-full bg-gradient-to-r from-pink-500 to-purple-500 rounded-full"
+                  />
+                </div>
+                <p className="text-[10px] leading-relaxed text-slate-500 dark:text-neutral-400 font-medium">
+                  Moliyaviy tajriba darajangiz. Tranzaksiyalar va o'yinlarda oshadi.
+                </p>
+              </div>
             </motion.div>
 
             {/* Card 4: Missiyalar */}
@@ -231,9 +288,27 @@ export default function HeroDashboardCard() {
                   </span>
                 </div>
               </div>
-              <p className="text-[10px] leading-relaxed text-slate-400 dark:text-neutral-500 font-semibold mt-3 pt-3 border-t border-slate-100 dark:border-neutral-800">
-                🏆 Pulni tejash va bilim olish bo'yicha yakunlagan amaliy topshiriqlaringiz.
-              </p>
+              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-neutral-800/80 flex flex-col gap-2">
+                <div className="flex items-center justify-between text-[9px] font-bold">
+                  <span className="text-amber-500 uppercase tracking-wider font-extrabold flex items-center gap-1">
+                    🏆 Missiyalar bajarilishi
+                  </span>
+                  <span className="text-amber-600 dark:text-amber-400 font-extrabold">
+                    {user.questsCompleted}/{user.totalQuests}
+                  </span>
+                </div>
+                <div className="w-full h-1 bg-slate-100 dark:bg-neutral-800/50 rounded-full overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: `${Math.min(100, (user.questsCompleted / (user.totalQuests || 1)) * 100)}%` }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    className="h-full bg-gradient-to-r from-amber-500 to-orange-400 rounded-full"
+                  />
+                </div>
+                <p className="text-[10px] leading-relaxed text-slate-500 dark:text-neutral-400 font-medium">
+                  Pulni tejash va bilim olish bo'yicha yakunlagan amaliy topshiriqlaringiz.
+                </p>
+              </div>
             </motion.div>
           </div>
         </div>

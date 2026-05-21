@@ -284,7 +284,7 @@ export default function GoalProgressCard() {
                         setSaveError("");
                       }}
                       placeholder="0"
-                      className="w-full px-6 py-5 rounded-2xl bg-slate-50 dark:bg-neutral-900 border-2 border-slate-200 dark:border-neutral-800 text-slate-800 dark:text-white placeholder-slate-350 dark:placeholder-neutral-700 focus:outline-none focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 focus:scale-[1.01] transition-all text-3xl sm:text-4xl font-black text-center shadow-inner"
+                      className="w-full pl-6 pr-16 py-5 rounded-2xl bg-slate-50 dark:bg-neutral-900 border-2 border-slate-200 dark:border-neutral-800 text-slate-800 dark:text-white placeholder-slate-350 dark:placeholder-neutral-700 focus:outline-none focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 focus:scale-[1.01] transition-all text-3xl sm:text-4xl font-black text-center shadow-inner"
                     />
                     <div className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-neutral-500 font-black text-base sm:text-lg pointer-events-none select-none">
                       so'm
@@ -444,7 +444,7 @@ export default function GoalProgressCard() {
                       onChange={(e) => setTxAmount(e.target.value)}
                       placeholder="0"
                       required
-                      className="w-full px-6 py-5 rounded-2xl bg-slate-50 dark:bg-neutral-900 border-2 border-slate-200 dark:border-neutral-800 text-slate-800 dark:text-white placeholder-slate-350 dark:placeholder-neutral-700 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:scale-[1.01] transition-all text-3xl sm:text-4xl font-black text-center shadow-inner"
+                      className="w-full pl-6 pr-16 py-5 rounded-2xl bg-slate-50 dark:bg-neutral-900 border-2 border-slate-200 dark:border-neutral-800 text-slate-800 dark:text-white placeholder-slate-350 dark:placeholder-neutral-700 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:scale-[1.01] transition-all text-3xl sm:text-4xl font-black text-center shadow-inner"
                     />
                     <div className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-neutral-500 font-black text-base sm:text-lg pointer-events-none select-none">
                       so'm
