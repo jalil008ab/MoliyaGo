@@ -2,8 +2,161 @@
 
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Flame, TrendingUp, Wallet, Star, Trophy } from "lucide-react";
+import { Flame } from "lucide-react";
 import { useUser } from "@/context/UserContext";
+
+function AnimatedWalletIcon() {
+  return (
+    <motion.div
+      className="relative w-6 h-6 flex items-center justify-center text-emerald-500"
+      whileHover="hover"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="w-5 h-5"
+      >
+        <path d="M19 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+        <motion.path
+          d="M16 8h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4V8z"
+          variants={{
+            hover: { rotateY: -25, originX: "100%", transition: { duration: 0.3 } }
+          }}
+        />
+        <circle cx="18" cy="12" r="1" fill="currentColor" />
+      </svg>
+      <motion.span
+        className="absolute text-[10px] -top-3.5 -right-2.5 pointer-events-none"
+        variants={{
+          hover: {
+            opacity: [0, 1, 0],
+            y: [-2, -10, -14],
+            x: [0, 4, 6],
+            scale: [0.8, 1.2, 0.8],
+            transition: { duration: 0.6, repeat: Infinity, repeatDelay: 0.2 }
+          }
+        }}
+        initial={{ opacity: 0 }}
+      >
+        🪙
+      </motion.span>
+    </motion.div>
+  );
+}
+
+function AnimatedVaultIcon() {
+  return (
+    <motion.div
+      className="relative w-6 h-6 flex items-center justify-center text-cyan-500"
+      whileHover="hover"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="w-5 h-5"
+      >
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <circle cx="12" cy="12" r="6" strokeDasharray="3,3" />
+        <motion.circle
+          cx="12"
+          cy="12"
+          r="3"
+          variants={{
+            hover: { rotate: 360 }
+          }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.line
+          x1="12"
+          y1="9"
+          x2="12"
+          y2="6"
+          variants={{
+            hover: { rotate: 360 }
+          }}
+          style={{ originX: "12px", originY: "12px" }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+        />
+      </svg>
+    </motion.div>
+  );
+}
+
+function AnimatedStarIcon() {
+  return (
+    <motion.div
+      className="relative w-6 h-6 flex items-center justify-center text-pink-500"
+      whileHover="hover"
+    >
+      <motion.svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="w-5 h-5"
+        variants={{
+          hover: { rotate: 144, scale: 1.1 }
+        }}
+        transition={{ type: "spring", stiffness: 120, damping: 10 }}
+      >
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+      </motion.svg>
+      <motion.span
+        className="absolute text-[8px] -top-2.5 -left-2.5 pointer-events-none"
+        variants={{
+          hover: {
+            opacity: [0, 1, 0],
+            scale: [0.5, 1, 0.5],
+            y: [-2, -6, -8],
+            transition: { duration: 0.8, repeat: Infinity }
+          }
+        }}
+        initial={{ opacity: 0 }}
+      >
+        ✨
+      </motion.span>
+    </motion.div>
+  );
+}
+
+function AnimatedTrophyIcon() {
+  return (
+    <motion.div
+      className="relative w-6 h-6 flex items-center justify-center text-amber-500"
+      whileHover="hover"
+    >
+      <motion.svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="w-5 h-5"
+        variants={{
+          hover: { y: -3, scale: 1.05 }
+        }}
+        transition={{ type: "spring", stiffness: 300, damping: 12 }}
+      >
+        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+        <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+        <path d="M4 22h16" />
+        <path d="M10 14.66V17c0 .55-.45 1-1 1H4v2h16v-2h-5c-.55 0-1-.45-1-1v-2.34" />
+        <path d="M12 2a6 6 0 0 1 6 6v4a6 6 0 0 1-6 6 6 6 0 0 1-6-6V8a6 6 0 0 1 6-6z" />
+      </motion.svg>
+    </motion.div>
+  );
+}
 
 function formatNumber(n: number): string {
   return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -132,8 +285,8 @@ export default function HeroDashboardCard() {
             >
               <div>
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-                    <Wallet className="w-4 h-4" />
+                  <div className="p-1.5 rounded-xl bg-emerald-500/10 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-450 w-8 h-8 flex items-center justify-center">
+                    <AnimatedWalletIcon />
                   </div>
                   <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-neutral-400 font-extrabold uppercase tracking-wider">
                     Hamyon (Naqd pul)
@@ -170,8 +323,8 @@ export default function HeroDashboardCard() {
             >
               <div>
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="p-1.5 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400">
-                    <TrendingUp className="w-4 h-4" />
+                  <div className="p-1.5 rounded-xl bg-cyan-500/10 dark:bg-cyan-950/30 text-cyan-600 dark:text-cyan-450 w-8 h-8 flex items-center justify-center">
+                    <AnimatedVaultIcon />
                   </div>
                   <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-neutral-400 font-extrabold uppercase tracking-wider">
                     Seysdagi pul (Jamg'arma)
@@ -225,8 +378,8 @@ export default function HeroDashboardCard() {
             >
               <div>
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="p-1.5 rounded-lg bg-pink-500/10 text-pink-600 dark:text-pink-400">
-                    <Star className="w-4 h-4" />
+                  <div className="p-1.5 rounded-xl bg-pink-500/10 dark:bg-pink-950/30 text-pink-600 dark:text-pink-450 w-8 h-8 flex items-center justify-center">
+                    <AnimatedStarIcon />
                   </div>
                   <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-neutral-400 font-extrabold uppercase tracking-wider">
                     Bilim darajasi (XP)
@@ -272,8 +425,8 @@ export default function HeroDashboardCard() {
             >
               <div>
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="p-1.5 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400">
-                    <Trophy className="w-4 h-4" />
+                  <div className="p-1.5 rounded-xl bg-amber-500/10 dark:bg-amber-950/30 text-amber-600 dark:text-amber-450 w-8 h-8 flex items-center justify-center">
+                    <AnimatedTrophyIcon />
                   </div>
                   <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-neutral-400 font-extrabold uppercase tracking-wider">
                     Missiyalar

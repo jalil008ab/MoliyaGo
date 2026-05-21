@@ -116,7 +116,7 @@ export default function SettingsDrawer({ isOpen, onClose }: SettingsDrawerProps)
 
               <div className="relative p-6">
                 {/* Header */}
-                <div className="flex items-center justify-between mb-6 border-b border-slate-100 dark:border-neutral-800 pb-4">
+                <div className="relative z-50 flex items-center justify-between mb-6 border-b border-slate-100 dark:border-neutral-800 pb-4">
                   <div className="flex items-center gap-3">
                     <motion.div
                       animate={{ rotate: [0, 360] }}

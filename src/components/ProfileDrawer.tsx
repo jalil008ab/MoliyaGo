@@ -88,7 +88,7 @@ export default function ProfileDrawer({ isOpen, onClose }: ProfileDrawerProps) {
 
               <div className="relative p-6">
                 {/* Header */}
-                <div className="flex items-center justify-between mb-6 border-b border-slate-100 dark:border-neutral-800 pb-4">
+                <div className="relative z-50 flex items-center justify-between mb-6 border-b border-slate-100 dark:border-neutral-800 pb-4">
                   <div className="flex items-center gap-3">
                     <User className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
                     <h2 className="text-xl font-bold text-slate-800 dark:text-neutral-100">Mening Profilim</h2>

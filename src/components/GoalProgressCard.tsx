@@ -284,9 +284,9 @@ export default function GoalProgressCard() {
                         setSaveError("");
                       }}
                       placeholder="0"
-                      className="w-full pl-6 pr-16 py-5 rounded-2xl bg-slate-50 dark:bg-neutral-900 border-2 border-slate-200 dark:border-neutral-800 text-slate-800 dark:text-white placeholder-slate-350 dark:placeholder-neutral-700 focus:outline-none focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 focus:scale-[1.01] transition-all text-3xl sm:text-4xl font-black text-center shadow-inner"
+                      className="w-full pl-6 pr-16 py-6 rounded-2xl bg-slate-50 dark:bg-neutral-900 border-2 border-slate-200 dark:border-neutral-800 text-slate-800 dark:text-white placeholder-slate-350 dark:placeholder-neutral-700 focus:outline-none focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 focus:scale-[1.01] transition-all text-3xl sm:text-4xl font-black text-center shadow-inner"
                     />
-                    <div className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-neutral-500 font-black text-base sm:text-lg pointer-events-none select-none">
+                    <div className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 dark:text-neutral-500 font-black text-base sm:text-lg pointer-events-none select-none">
                       so'm
                     </div>
                   </div>
@@ -310,7 +310,7 @@ export default function GoalProgressCard() {
                 </div>
 
                 {/* Preset Buttons */}
-                <div className="flex gap-3 max-w-md mx-auto w-full">
+                <div className="grid grid-cols-3 gap-2.5 max-w-md mx-auto w-full">
                   {presets.map((preset, i) => (
                     <motion.button
                       key={preset}
@@ -321,10 +321,10 @@ export default function GoalProgressCard() {
                         setSaveAmount(preset.toString());
                         setSaveError("");
                       }}
-                      className="flex-1 py-3 px-2 rounded-2xl border-2 border-slate-200 dark:border-neutral-800 hover:border-cyan-400 dark:hover:border-cyan-700 hover:bg-cyan-50/50 dark:hover:bg-cyan-950/30 text-slate-600 dark:text-neutral-400 hover:text-cyan-700 dark:hover:text-cyan-400 text-xs sm:text-sm font-extrabold transition-all cursor-pointer shadow-sm bg-white dark:bg-neutral-900 flex flex-col items-center gap-1"
+                      className="py-3 px-1 sm:px-2 rounded-2xl border-2 border-slate-200 dark:border-neutral-800 hover:border-cyan-400 dark:hover:border-cyan-700 hover:bg-cyan-50/50 dark:hover:bg-cyan-950/30 text-slate-600 dark:text-neutral-400 hover:text-cyan-700 dark:hover:text-cyan-400 text-xs sm:text-sm font-extrabold transition-all cursor-pointer shadow-sm bg-white dark:bg-neutral-900 flex flex-col items-center gap-1"
                     >
                       <span className="text-lg sm:text-xl filter drop-shadow-sm">{presetEmojis[i]}</span>
-                      <span className="font-black">+{formatNumber(preset)}</span>
+                      <span className="font-black text-[11px] sm:text-xs">+{formatNumber(preset)}</span>
                     </motion.button>
                   ))}
                 </div>
@@ -378,11 +378,11 @@ export default function GoalProgressCard() {
               {/* Transaction Form */}
               <form onSubmit={handleAddTransaction} className="space-y-5 border-b border-slate-100 dark:border-neutral-900 pb-5">
                 {/* Income / Expense Toggle */}
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-3">
                   <motion.button
                     type="button"
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     onClick={() => {
                       setTxType("expense");
                       setTxCategory("Oziq-ovqat");
@@ -397,8 +397,8 @@ export default function GoalProgressCard() {
                   </motion.button>
                   <motion.button
                     type="button"
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     onClick={() => {
                       setTxType("income");
                       setTxCategory("Cho'ntak puli");
@@ -444,9 +444,9 @@ export default function GoalProgressCard() {
                       onChange={(e) => setTxAmount(e.target.value)}
                       placeholder="0"
                       required
-                      className="w-full pl-6 pr-16 py-5 rounded-2xl bg-slate-50 dark:bg-neutral-900 border-2 border-slate-200 dark:border-neutral-800 text-slate-800 dark:text-white placeholder-slate-350 dark:placeholder-neutral-700 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:scale-[1.01] transition-all text-3xl sm:text-4xl font-black text-center shadow-inner"
+                      className="w-full pl-6 pr-16 py-6 rounded-2xl bg-slate-50 dark:bg-neutral-900 border-2 border-slate-200 dark:border-neutral-800 text-slate-800 dark:text-white placeholder-slate-350 dark:placeholder-neutral-700 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:scale-[1.01] transition-all text-3xl sm:text-4xl font-black text-center shadow-inner"
                     />
-                    <div className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-neutral-500 font-black text-base sm:text-lg pointer-events-none select-none">
+                    <div className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 dark:text-neutral-500 font-black text-base sm:text-lg pointer-events-none select-none">
                       so'm
                     </div>
                   </div>
