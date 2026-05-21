@@ -139,7 +139,7 @@ export default function GoalProgressCard() {
             </motion.div>
             <div>
               <h3 className="text-lg font-black text-slate-800 dark:text-neutral-100 tracking-tight">Maqsad Progressi</h3>
-              <p className="text-sm text-slate-400 dark:text-neutral-400">Jamg'arma ko'rsatkichi</p>
+              <p className="text-sm text-slate-500 dark:text-neutral-300 font-bold">Jamg'arma ko'rsatkichi</p>
             </div>
           </div>
           <motion.div
@@ -177,18 +177,18 @@ export default function GoalProgressCard() {
 
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-[10px] text-slate-400 dark:text-neutral-500 block uppercase font-bold tracking-wider mb-0.5">Jamg'arilgan</span>
+              <span className="text-[10px] text-slate-500 dark:text-neutral-300 block uppercase font-black tracking-wider mb-0.5">Jamg'arilgan</span>
               <span className="text-emerald-600 dark:text-emerald-400 text-2xl sm:text-3xl font-black">
                 {formatNumber(user.savedAmount)}
               </span>
-              <span className="text-emerald-600/60 dark:text-emerald-400/60 text-sm font-bold ml-1">so'm</span>
+              <span className="text-emerald-600 dark:text-emerald-400 text-sm font-black ml-1">so'm</span>
             </div>
             <div className="text-right">
-              <span className="text-[10px] text-slate-400 dark:text-neutral-500 block uppercase font-bold tracking-wider mb-0.5">Maqsad summasi</span>
-              <span className="text-slate-600 dark:text-neutral-300 text-2xl sm:text-3xl font-black">
+              <span className="text-[10px] text-slate-500 dark:text-neutral-300 block uppercase font-black tracking-wider mb-0.5">Maqsad summasi</span>
+              <span className="text-slate-800 dark:text-neutral-100 text-2xl sm:text-3xl font-black">
                 {formatNumber(user.targetAmount)}
               </span>
-              <span className="text-slate-400 dark:text-neutral-500 text-sm font-bold ml-1">so'm</span>
+              <span className="text-slate-600 dark:text-neutral-400 text-sm font-black ml-1">so'm</span>
             </div>
           </div>
         </div>
@@ -261,18 +261,18 @@ export default function GoalProgressCard() {
                   whileHover={{ scale: 1.01 }}
                   className="text-center bg-gradient-to-br from-emerald-50 to-cyan-50 dark:from-emerald-950/20 dark:to-cyan-950/20 border border-emerald-100 dark:border-emerald-900/30 p-5 rounded-2xl shadow-sm"
                 >
-                  <span className="text-sm text-emerald-700 dark:text-emerald-400 block font-bold mb-1">Hamyoningizda bor pul (Mavjud pul):</span>
-                  <span className="text-3xl sm:text-4xl font-black text-emerald-600 dark:text-emerald-400 tracking-tight">{formatNumber(user.balance)}</span>
-                  <span className="text-emerald-600/60 dark:text-emerald-400/60 text-base font-bold ml-1.5">so'm</span>
+                  <span className="text-sm text-emerald-800 dark:text-emerald-300 block font-extrabold mb-1">Hamyoningizda bor pul (Mavjud pul):</span>
+                  <span className="text-3xl sm:text-4xl font-black text-emerald-600 dark:text-emerald-300 tracking-tight">{formatNumber(user.balance)}</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 text-base font-black ml-1.5">so'm</span>
                 </motion.div>
 
                 {/* Savings Input */}
                 <div className="space-y-3">
                   <div className="text-center">
-                    <label className="block text-sm text-slate-600 dark:text-neutral-400 font-extrabold mb-1">
+                    <label className="block text-sm text-slate-800 dark:text-neutral-200 font-black mb-1">
                       Jamg'armaga pul o'tkazish summasi
                     </label>
-                    <p className="text-xs text-slate-400 dark:text-neutral-500">Maqsadingiz uchun chetga qo'ymoqchi bo'lgan miqdorni kiriting</p>
+                    <p className="text-xs text-slate-500 dark:text-neutral-400 font-bold">Maqsadingiz uchun chetga qo'ymoqchi bo'lgan miqdorni kiriting</p>
                   </div>
                   
                   <div className="relative max-w-md mx-auto">
@@ -321,7 +321,7 @@ export default function GoalProgressCard() {
                         setSaveAmount(preset.toString());
                         setSaveError("");
                       }}
-                      className="py-3 px-1 sm:px-2 rounded-2xl border-2 border-slate-200 dark:border-neutral-800 hover:border-cyan-400 dark:hover:border-cyan-700 hover:bg-cyan-50/50 dark:hover:bg-cyan-950/30 text-slate-600 dark:text-neutral-400 hover:text-cyan-700 dark:hover:text-cyan-400 text-xs sm:text-sm font-extrabold transition-all cursor-pointer shadow-sm bg-white dark:bg-neutral-900 flex flex-col items-center gap-1"
+                      className="py-3 px-1 sm:px-2 rounded-2xl border-2 border-slate-200 dark:border-neutral-800 hover:border-cyan-400 dark:hover:border-cyan-700 hover:bg-cyan-50/50 dark:hover:bg-cyan-950/30 text-slate-800 dark:text-neutral-200 hover:text-cyan-700 dark:hover:text-cyan-400 text-xs sm:text-sm font-extrabold transition-all cursor-pointer shadow-sm bg-white dark:bg-neutral-900 flex flex-col items-center gap-1"
                     >
                       <span className="text-lg sm:text-xl filter drop-shadow-sm">{presetEmojis[i]}</span>
                       <span className="font-black text-[11px] sm:text-xs">+{formatNumber(preset)}</span>
