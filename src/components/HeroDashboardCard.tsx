@@ -1,162 +1,8 @@
 "use client";
 
-import { motion, useMotionValue, useTransform, animate } from "framer-motion";
-import { useEffect, useState } from "react";
-import { Flame } from "lucide-react";
+import { motion, useMotionValue, useTransform, animate, useSpring } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
 import { useUser } from "@/context/UserContext";
-
-function AnimatedWalletIcon() {
-  return (
-    <motion.div
-      className="relative w-6 h-6 flex items-center justify-center text-emerald-500"
-      whileHover="hover"
-    >
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="w-5 h-5"
-      >
-        <path d="M19 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
-        <motion.path
-          d="M16 8h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4V8z"
-          variants={{
-            hover: { rotateY: -25, originX: "100%", transition: { duration: 0.3 } }
-          }}
-        />
-        <circle cx="18" cy="12" r="1" fill="currentColor" />
-      </svg>
-      <motion.span
-        className="absolute text-[10px] -top-3.5 -right-2.5 pointer-events-none"
-        variants={{
-          hover: {
-            opacity: [0, 1, 0],
-            y: [-2, -10, -14],
-            x: [0, 4, 6],
-            scale: [0.8, 1.2, 0.8],
-            transition: { duration: 0.6, repeat: Infinity, repeatDelay: 0.2 }
-          }
-        }}
-        initial={{ opacity: 0 }}
-      >
-        🪙
-      </motion.span>
-    </motion.div>
-  );
-}
-
-function AnimatedVaultIcon() {
-  return (
-    <motion.div
-      className="relative w-6 h-6 flex items-center justify-center text-cyan-500"
-      whileHover="hover"
-    >
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="w-5 h-5"
-      >
-        <rect x="3" y="3" width="18" height="18" rx="2" />
-        <circle cx="12" cy="12" r="6" strokeDasharray="3,3" />
-        <motion.circle
-          cx="12"
-          cy="12"
-          r="3"
-          variants={{
-            hover: { rotate: 360 }
-          }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.line
-          x1="12"
-          y1="9"
-          x2="12"
-          y2="6"
-          variants={{
-            hover: { rotate: 360 }
-          }}
-          style={{ originX: "12px", originY: "12px" }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-        />
-      </svg>
-    </motion.div>
-  );
-}
-
-function AnimatedStarIcon() {
-  return (
-    <motion.div
-      className="relative w-6 h-6 flex items-center justify-center text-pink-500"
-      whileHover="hover"
-    >
-      <motion.svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="w-5 h-5"
-        variants={{
-          hover: { rotate: 144, scale: 1.1 }
-        }}
-        transition={{ type: "spring", stiffness: 120, damping: 10 }}
-      >
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-      </motion.svg>
-      <motion.span
-        className="absolute text-[8px] -top-2.5 -left-2.5 pointer-events-none"
-        variants={{
-          hover: {
-            opacity: [0, 1, 0],
-            scale: [0.5, 1, 0.5],
-            y: [-2, -6, -8],
-            transition: { duration: 0.8, repeat: Infinity }
-          }
-        }}
-        initial={{ opacity: 0 }}
-      >
-        ✨
-      </motion.span>
-    </motion.div>
-  );
-}
-
-function AnimatedTrophyIcon() {
-  return (
-    <motion.div
-      className="relative w-6 h-6 flex items-center justify-center text-amber-500"
-      whileHover="hover"
-    >
-      <motion.svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="w-5 h-5"
-        variants={{
-          hover: { y: -3, scale: 1.05 }
-        }}
-        transition={{ type: "spring", stiffness: 300, damping: 12 }}
-      >
-        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
-        <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
-        <path d="M4 22h16" />
-        <path d="M10 14.66V17c0 .55-.45 1-1 1H4v2h16v-2h-5c-.55 0-1-.45-1-1v-2.34" />
-        <path d="M12 2a6 6 0 0 1 6 6v4a6 6 0 0 1-6 6 6 6 0 0 1-6-6V8a6 6 0 0 1 6-6z" />
-      </motion.svg>
-    </motion.div>
-  );
-}
 
 function formatNumber(n: number): string {
   return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -166,306 +12,435 @@ function calculateLevel(xp: number): number {
   return Math.floor(xp / 500) + 1;
 }
 
-function AnimatedCounter({
-  target,
-  duration = 1.5,
-}: {
-  target: number;
-  duration?: number;
-}) {
+// Fast animated counter
+function AnimatedCounter({ target, duration = 0.6 }: { target: number; duration?: number }) {
   const count = useMotionValue(0);
-  const rounded = useTransform(count, (latest) => {
-    return formatNumber(Math.round(latest));
-  });
+  const rounded = useTransform(count, (latest) => formatNumber(Math.round(latest)));
   const [displayValue, setDisplayValue] = useState("0");
 
   useEffect(() => {
-    const controls = animate(count, target, {
-      duration,
-      ease: "easeOut",
-    });
-
+    const controls = animate(count, target, { duration, ease: "easeOut" });
     const unsubscribe = rounded.on("change", (v) => setDisplayValue(v));
-
-    return () => {
-      controls.stop();
-      unsubscribe();
-    };
+    return () => { controls.stop(); unsubscribe(); };
   }, [target, duration, count, rounded]);
 
   return <span>{displayValue}</span>;
+}
+
+// Mini sparkline chart
+function Sparkline({ data, color }: { data: number[]; color: string }) {
+  if (data.length < 2) return null;
+  const max = Math.max(...data);
+  const min = Math.min(...data);
+  const range = max - min || 1;
+  const w = 80, h = 30;
+  const points = data.map((v, i) => [
+    (i / (data.length - 1)) * w,
+    h - ((v - min) / range) * (h - 4) - 2,
+  ]);
+  const path = points.map((p, i) => `${i === 0 ? "M" : "L"} ${p[0]} ${p[1]}`).join(" ");
+
+  return (
+    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="overflow-visible">
+      <defs>
+        <linearGradient id={`grad-${color}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor={color} stopOpacity="0.4" />
+          <stop offset="100%" stopColor={color} stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      {/* Fill area */}
+      <path
+        d={`${path} L ${w} ${h} L 0 ${h} Z`}
+        fill={`url(#grad-${color})`}
+      />
+      {/* Line */}
+      <motion.path
+        d={path}
+        fill="none"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      />
+      {/* Last dot */}
+      <circle cx={points[points.length - 1][0]} cy={points[points.length - 1][1]} r="2.5" fill={color} />
+    </svg>
+  );
+}
+
+// Individual metric card
+interface MetricCardProps {
+  delay: number;
+  accentColor: string;
+  glowColor: string;
+  label: string;
+  sublabel: string;
+  value: React.ReactNode;
+  unit: string;
+  icon: string;
+  footer: React.ReactNode;
+  sparkData: number[];
+  sparkColor: string;
+  index: number;
+}
+
+function MetricCard({ delay, accentColor, glowColor, label, sublabel, value, unit, icon, footer, sparkData, sparkColor, index }: MetricCardProps) {
+  const [hovered, setHovered] = useState(false);
+  
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ delay, type: "spring", stiffness: 380, damping: 28 }}
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
+      className="relative rounded-2xl overflow-hidden cursor-default"
+      style={{
+        background: "var(--gradient-card)",
+        border: `1px solid ${hovered ? glowColor + "60" : "var(--border-light)"}`,
+        boxShadow: hovered ? `0 16px 48px ${glowColor}20, 0 4px 12px ${glowColor}10` : "var(--shadow-sm)",
+        transform: hovered ? "translateY(-6px) scale(1.01)" : "translateY(0px) scale(1)",
+        transition: "all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1)",
+      }}
+    >
+      {/* Subtle gradient overlay */}
+      <div
+        className="absolute inset-0 opacity-30 pointer-events-none"
+        style={{ background: `radial-gradient(circle at top right, ${glowColor}15, transparent 70%)` }}
+      />
+
+      {/* Content */}
+      <div className="relative p-5">
+        {/* Top row: label + icon */}
+        <div className="flex items-start justify-between mb-3">
+          <div>
+            <div className="flex items-center gap-2 mb-0.5">
+              <span className="text-[10px] font-black uppercase tracking-widest" style={{ color: accentColor + "aa" }}>
+                {label}
+              </span>
+            </div>
+            <p className="text-xs text-slate-500 dark:text-neutral-500 font-medium">{sublabel}</p>
+          </div>
+          <motion.div
+            animate={hovered ? { rotate: [0, -10, 10, 0], scale: [1, 1.15, 1] } : {}}
+            transition={{ duration: 0.3 }}
+            className="text-2xl"
+          >
+            {icon}
+          </motion.div>
+        </div>
+
+        {/* Value */}
+        <div className="flex items-baseline gap-1.5 mb-3">
+          <span className="text-3xl font-black" style={{ color: accentColor }}>
+            {value}
+          </span>
+          <span className="text-xs font-bold" style={{ color: accentColor + "80" }}>
+            {unit}
+          </span>
+        </div>
+
+        {/* Sparkline */}
+        <div className="mb-3 opacity-70">
+          <Sparkline data={sparkData} color={sparkColor} />
+        </div>
+
+        {/* Footer */}
+        <div className="pt-3 border-t border-black/5 dark:border-white/5">
+          {footer}
+        </div>
+      </div>
+    </motion.div>
+  );
 }
 
 export default function HeroDashboardCard() {
   const { user } = useUser();
   const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
+  useEffect(() => { setIsVisible(true); }, []);
+
+  const progress = user.targetAmount > 0
+    ? Math.min(100, Math.round((user.savedAmount / user.targetAmount) * 100))
+    : 0;
+
+  const xpInLevel = user.xp % 500;
+  const xpProgress = (xpInLevel / 500) * 100;
+  const questProgress = Math.min(100, (user.questsCompleted / (user.totalQuests || 1)) * 100);
+
+  // Generate mock sparkline data from real data or random seeds
+  const balanceSparkData = [0, user.balance * 0.3, user.balance * 0.6, user.balance * 0.45, user.balance * 0.8, user.balance];
+  const savingsSparkData = [0, user.savedAmount * 0.2, user.savedAmount * 0.5, user.savedAmount * 0.7, user.savedAmount * 0.9, user.savedAmount];
+  const xpSparkData = [50, 100, 150, 200, 350, 500, user.xp % 500 || 10];
+  const questSparkData = [0, 2, 5, user.questsCompleted * 0.5, user.questsCompleted * 0.8, user.questsCompleted];
+
+  const getTimeOfDay = () => {
+    const h = new Date().getHours();
+    if (h < 12) return { greeting: "Xayrli tong", emoji: "🌅" };
+    if (h < 18) return { greeting: "Xayrli kun", emoji: "☀️" };
+    return { greeting: "Xayrli kech", emoji: "🌙" };
+  };
+  const { greeting, emoji } = getTimeOfDay();
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
-      className="relative overflow-hidden"
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className="relative"
     >
       {/* Main Hero Card */}
-      <div className="glass-card p-6 sm:p-8 lg:p-10 relative overflow-hidden">
-        {/* Decorative background elements (soft light pastels) */}
-        <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-emerald-500/10 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-60 h-60 bg-gradient-to-tr from-pink-500/10 to-transparent rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-cyan-500/5 to-emerald-500/5 rounded-full blur-3xl" />
+      <div
+        className="relative rounded-3xl overflow-hidden p-6 sm:p-8 lg:p-10"
+        style={{
+          background: "var(--bg-card)",
+          backdropFilter: "blur(24px) saturate(180%)",
+          WebkitBackdropFilter: "blur(24px) saturate(180%)",
+          border: "1px solid var(--border-light)",
+          boxShadow: "var(--shadow-card)",
+        }}
+      >
+        {/* Premium mesh gradient background */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div
+            className="absolute -top-20 -right-20 w-80 h-80 rounded-full opacity-20"
+            style={{ background: "radial-gradient(circle, #F5A623, transparent 70%)", filter: "blur(40px)" }}
+          />
+          <div
+            className="absolute -bottom-20 -left-10 w-60 h-60 rounded-full opacity-15"
+            style={{ background: "radial-gradient(circle, #06C270, transparent 70%)", filter: "blur(40px)" }}
+          />
+          <div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-32 opacity-10"
+            style={{ background: "radial-gradient(ellipse, #7B5EA7, transparent 70%)", filter: "blur(30px)" }}
+          />
+        </div>
 
         <div className="relative z-10">
-          {/* Top Row - Greeting & Streak */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
+          {/* Top Row */}
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-8">
             {/* Greeting */}
             <div>
               <motion.p
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-slate-500 dark:text-neutral-400 text-sm sm:text-base mb-1 font-medium"
+                transition={{ delay: 0.1, duration: 0.3 }}
+                className="text-sm font-medium text-slate-500 dark:text-neutral-400 mb-1 flex items-center gap-1.5"
               >
-                Xush kelibsiz! Har kungi moliyaviy sayohatingiz 🚀
+                {emoji} {greeting}
               </motion.p>
               <motion.h2
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-                className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-800 dark:text-neutral-100"
+                transition={{ delay: 0.15, duration: 0.3 }}
+                className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-slate-900 dark:text-white"
               >
                 Salom,{" "}
-                <span className="gradient-text">{user.name || "Do'stim"}</span>! 👋
+                <span style={{
+                  background: "linear-gradient(135deg, #F5A623 0%, #06C270 60%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}>
+                  {user.name || "Do'stim"}!
+                </span>{" "}
+                👋
               </motion.h2>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="text-sm text-slate-500 dark:text-neutral-400 mt-1 font-medium"
+              >
+                Moliyaviy erkinlikka qadam qadam yaqinlashmoqdasiz 🚀
+              </motion.p>
             </div>
 
-            {/* Streak Badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
-              whileHover={{ scale: 1.03 }}
-              className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-gradient-to-r from-orange-500/10 to-amber-500/10 border border-orange-500/20 dark:border-orange-500/30 self-start sm:self-auto shadow-sm"
-            >
+            {/* Streak + Level badges */}
+            <div className="flex items-center gap-3 flex-shrink-0">
+              {/* Streak */}
               <motion.div
-                animate={{
-                  scale: [1, 1.2, 1],
-                  rotate: [0, 5, -5, 0],
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.25, type: "spring", stiffness: 400, damping: 20 }}
+                whileHover={{ scale: 1.05 }}
+                className="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl border"
+                style={{
+                  background: "linear-gradient(135deg, rgba(249,115,22,0.08), rgba(239,68,68,0.05))",
+                  borderColor: "rgba(249,115,22,0.2)",
                 }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="text-2xl sm:text-3xl"
               >
-                🔥
+                <motion.span
+                  animate={{ scale: [1, 1.3, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  className="text-2xl"
+                >
+                  🔥
+                </motion.span>
+                <div>
+                  <p className="text-[10px] text-orange-500 font-black uppercase tracking-wider">Streak</p>
+                  <p className="text-lg font-black text-orange-600 dark:text-orange-400 leading-none">{user.streak} kun</p>
+                </div>
               </motion.div>
-              <div>
-                <p className="text-xs text-slate-500 dark:text-neutral-400 font-medium">Ketma-ket faol kunlar</p>
-                <p className="text-lg sm:text-xl font-bold text-orange-600 dark:text-orange-400">
-                  {user.streak} kun
-                </p>
-              </div>
-            </motion.div>
+
+              {/* Level badge */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3, type: "spring", stiffness: 400, damping: 20 }}
+                whileHover={{ scale: 1.05 }}
+                className="flex flex-col items-center px-4 py-2.5 rounded-2xl border"
+                style={{
+                  background: "linear-gradient(135deg, rgba(123,94,167,0.1), rgba(167,139,250,0.05))",
+                  borderColor: "rgba(123,94,167,0.25)",
+                }}
+              >
+                <Crown className="w-4 h-4 text-purple-500 mb-0.5" />
+                <p className="text-lg font-black text-purple-600 dark:text-purple-400 leading-none">{user.level}</p>
+                <p className="text-[9px] text-purple-500 font-black uppercase tracking-wider">Daraja</p>
+              </motion.div>
+            </div>
           </div>
 
-          {/* Dashboard Metrics Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-4 sm:mt-6">
-            {/* Card 1: Hamyon (Naqd Pul) */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="p-5 rounded-2xl bg-white dark:bg-neutral-900 border border-slate-200/60 dark:border-neutral-800 shadow-sm flex flex-col justify-between transition-all"
-            >
-              <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="p-1.5 rounded-xl bg-emerald-500/10 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-450 w-8 h-8 flex items-center justify-center">
-                    <AnimatedWalletIcon />
-                  </div>
-                  <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-neutral-400 font-extrabold uppercase tracking-wider">
-                    Hamyon (Naqd pul)
-                  </p>
-                </div>
-                <div className="flex items-baseline gap-1.5 flex-wrap">
-                  <span className="text-2xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-400">
-                    {isVisible && <AnimatedCounter target={user.balance} />}
-                  </span>
-                  <span className="text-xs font-bold text-emerald-600/70 dark:text-emerald-400/70">so'm</span>
-                </div>
-              </div>
-              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-neutral-800/80 flex flex-col gap-1.5">
+          {/* Metrics Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Card 1: Balance */}
+            <MetricCard
+              delay={0.2}
+              accentColor="#06C270"
+              glowColor="#06C270"
+              label="Hamyon"
+              sublabel="Kundalik pul oqimi"
+              value={isVisible && <AnimatedCounter target={user.balance} />}
+              unit="so'm"
+              icon="💵"
+              sparkData={balanceSparkData}
+              sparkColor="#06C270"
+              index={0}
+              footer={
                 <div className="flex items-center justify-between">
-                  <span className="text-[9px] font-extrabold text-emerald-500 uppercase tracking-wider flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse inline-block shadow-sm" />
-                    Erkin Pul Oqimi
+                  <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse inline-block" />
+                    Erkin pul oqimi
                   </span>
-                  <span className="text-[9px] font-bold text-slate-400 dark:text-neutral-500 uppercase tracking-wider">Mavjud</span>
+                  <span className="text-[10px] text-slate-400 font-bold">Mavjud ✓</span>
                 </div>
-                <p className="text-[10px] leading-relaxed text-slate-500 dark:text-neutral-400 font-medium">
-                  Cho'ntakdagi pulingiz — kundalik tushlik, yo'lkira yoki mayda xarajatlar uchun.
-                </p>
-              </div>
-            </motion.div>
+              }
+            />
 
-            {/* Card 2: Seys (Jamg'arma) */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="p-5 rounded-2xl bg-white dark:bg-neutral-900 border border-slate-200/60 dark:border-neutral-800 shadow-sm flex flex-col justify-between transition-all"
-            >
-              <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="p-1.5 rounded-xl bg-cyan-500/10 dark:bg-cyan-950/30 text-cyan-600 dark:text-cyan-450 w-8 h-8 flex items-center justify-center">
-                    <AnimatedVaultIcon />
+            {/* Card 2: Savings */}
+            <MetricCard
+              delay={0.25}
+              accentColor="#00D4FF"
+              glowColor="#00D4FF"
+              label="Jamg'arma"
+              sublabel={user.goalName ? `Maqsad: ${user.goalName}` : "Maqsad belgilanmagan"}
+              value={isVisible && <AnimatedCounter target={user.savedAmount} duration={0.8} />}
+              unit="so'm"
+              icon="🏦"
+              sparkData={savingsSparkData}
+              sparkColor="#00D4FF"
+              index={1}
+              footer={
+                <div className="space-y-1.5">
+                  <div className="flex justify-between text-[10px] font-bold">
+                    <span className="text-cyan-500">🎯 Maqsad sari</span>
+                    <span className="text-cyan-600 dark:text-cyan-400">{progress}%</span>
                   </div>
-                  <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-neutral-400 font-extrabold uppercase tracking-wider">
-                    Seysdagi pul (Jamg'arma)
-                  </p>
-                </div>
-                <div className="flex items-baseline gap-1.5 flex-wrap">
-                  <span className="text-2xl sm:text-3xl font-black text-cyan-600 dark:text-cyan-400">
-                    {isVisible && <AnimatedCounter target={user.savedAmount} duration={1.2} />}
-                  </span>
-                  <span className="text-xs font-bold text-cyan-600/70 dark:text-cyan-400/70">so'm</span>
-                </div>
-              </div>
-              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-neutral-800/80 flex flex-col gap-2">
-                {user.targetAmount > 0 ? (
-                  <>
-                    <div className="flex items-center justify-between text-[9px] font-bold">
-                      <span className="text-cyan-500 uppercase tracking-wider font-extrabold flex items-center gap-1">
-                        🎯 Maqsad sari
-                      </span>
-                      <span className="text-cyan-600 dark:text-cyan-400 font-extrabold">
-                        {Math.round(Math.min(100, (user.savedAmount / user.targetAmount) * 100))}%
-                      </span>
-                    </div>
-                    <div className="w-full h-1 bg-slate-100 dark:bg-neutral-800/50 rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${Math.min(100, (user.savedAmount / user.targetAmount) * 100)}%` }}
-                        transition={{ duration: 1, ease: "easeOut" }}
-                        className="h-full bg-gradient-to-r from-cyan-500 to-emerald-400 rounded-full"
-                      />
-                    </div>
-                  </>
-                ) : (
-                  <div className="flex items-center gap-1 text-[9px] font-bold text-slate-400 dark:text-neutral-500 uppercase tracking-wider">
-                    🔒 Maqsad yaratilmagan
+                  <div className="h-1.5 bg-black/5 dark:bg-white/5 rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${progress}%` }}
+                      transition={{ duration: 0.6, ease: "easeOut" }}
+                      className="h-full rounded-full"
+                      style={{ background: "linear-gradient(90deg, #00D4FF, #06C270)" }}
+                    />
                   </div>
-                )}
-                <p className="text-[10px] leading-relaxed text-slate-500 dark:text-neutral-400 font-medium">
-                  Orzungizdagi maqsad ({user.goalName || "seys"}) uchun alohida chetda yig'ilayotgan pul.
-                </p>
-              </div>
-            </motion.div>
+                </div>
+              }
+            />
 
-            {/* Card 3: XP (Bilim darajasi) */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="p-5 rounded-2xl bg-white dark:bg-neutral-900 border border-slate-200/60 dark:border-neutral-800 shadow-sm flex flex-col justify-between transition-all"
-            >
-              <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="p-1.5 rounded-xl bg-pink-500/10 dark:bg-pink-950/30 text-pink-600 dark:text-pink-450 w-8 h-8 flex items-center justify-center">
-                    <AnimatedStarIcon />
+            {/* Card 3: XP */}
+            <MetricCard
+              delay={0.3}
+              accentColor="#A78BFA"
+              glowColor="#7B5EA7"
+              label="Tajriba (XP)"
+              sublabel={`Level ${calculateLevel(user.xp)} → ${calculateLevel(user.xp) + 1}`}
+              value={isVisible && <AnimatedCounter target={user.xp} duration={0.7} />}
+              unit="XP"
+              icon="⚡"
+              sparkData={xpSparkData}
+              sparkColor="#A78BFA"
+              index={2}
+              footer={
+                <div className="space-y-1.5">
+                  <div className="flex justify-between text-[10px] font-bold">
+                    <span className="text-purple-500">🌟 Level {calculateLevel(user.xp)}</span>
+                    <span className="text-purple-600 dark:text-purple-400">{xpInLevel}/500 XP</span>
                   </div>
-                  <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-neutral-400 font-extrabold uppercase tracking-wider">
-                    Bilim darajasi (XP)
-                  </p>
+                  <div className="h-1.5 bg-black/5 dark:bg-white/5 rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${xpProgress}%` }}
+                      transition={{ duration: 0.6, ease: "easeOut" }}
+                      className="h-full rounded-full"
+                      style={{ background: "linear-gradient(90deg, #7B5EA7, #A78BFA)" }}
+                    />
+                  </div>
                 </div>
-                <div className="flex items-baseline gap-1.5 flex-wrap">
-                  <span className="text-2xl sm:text-3xl font-black text-pink-600 dark:text-pink-400">
-                    {isVisible && <AnimatedCounter target={user.xp} duration={1} />}
-                  </span>
-                  <span className="text-xs font-bold text-pink-600/70 dark:text-pink-400/70">XP</span>
-                </div>
-              </div>
-              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-neutral-800/80 flex flex-col gap-2">
-                <div className="flex items-center justify-between text-[9px] font-bold">
-                  <span className="text-pink-500 uppercase tracking-wider font-extrabold flex items-center gap-1">
-                    🌟 Level {calculateLevel(user.xp)} progress
-                  </span>
-                  <span className="text-pink-600 dark:text-pink-400 font-extrabold">
-                    {user.xp % 500}/500 XP
-                  </span>
-                </div>
-                <div className="w-full h-1 bg-slate-100 dark:bg-neutral-800/50 rounded-full overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${((user.xp % 500) / 500) * 100}%` }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                    className="h-full bg-gradient-to-r from-pink-500 to-purple-500 rounded-full"
-                  />
-                </div>
-                <p className="text-[10px] leading-relaxed text-slate-500 dark:text-neutral-400 font-medium">
-                  Moliyaviy tajriba darajangiz. Tranzaksiyalar va o'yinlarda oshadi.
-                </p>
-              </div>
-            </motion.div>
+              }
+            />
 
-            {/* Card 4: Missiyalar */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="p-5 rounded-2xl bg-white dark:bg-neutral-900 border border-slate-200/60 dark:border-neutral-800 shadow-sm flex flex-col justify-between transition-all"
-            >
-              <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="p-1.5 rounded-xl bg-amber-500/10 dark:bg-amber-950/30 text-amber-600 dark:text-amber-450 w-8 h-8 flex items-center justify-center">
-                    <AnimatedTrophyIcon />
+            {/* Card 4: Quests */}
+            <MetricCard
+              delay={0.35}
+              accentColor="#FBBF24"
+              glowColor="#F5A623"
+              label="Missiyalar"
+              sublabel="Kunlik topshiriqlar"
+              value={isVisible && <AnimatedCounter target={user.questsCompleted} duration={0.5} />}
+              unit={`/ ${user.totalQuests}`}
+              icon="🏆"
+              sparkData={questSparkData}
+              sparkColor="#FBBF24"
+              index={3}
+              footer={
+                <div className="space-y-1.5">
+                  <div className="flex justify-between text-[10px] font-bold">
+                    <span className="text-amber-500">🏆 Bajarilish</span>
+                    <span className="text-amber-600 dark:text-amber-400">{Math.round(questProgress)}%</span>
                   </div>
-                  <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-neutral-400 font-extrabold uppercase tracking-wider">
-                    Missiyalar
-                  </p>
+                  <div className="h-1.5 bg-black/5 dark:bg-white/5 rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${questProgress}%` }}
+                      transition={{ duration: 0.6, ease: "easeOut" }}
+                      className="h-full rounded-full"
+                      style={{ background: "linear-gradient(90deg, #F5A623, #FFD166)" }}
+                    />
+                  </div>
                 </div>
-                <div className="flex items-baseline gap-1.5 flex-wrap">
-                  <span className="text-2xl sm:text-3xl font-black text-amber-600 dark:text-amber-400">
-                    {isVisible && <AnimatedCounter target={user.questsCompleted} duration={1} />}
-                  </span>
-                  <span className="text-xs font-bold text-amber-600/70 dark:text-amber-400/70">
-                    /{user.totalQuests}
-                  </span>
-                </div>
-              </div>
-              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-neutral-800/80 flex flex-col gap-2">
-                <div className="flex items-center justify-between text-[9px] font-bold">
-                  <span className="text-amber-500 uppercase tracking-wider font-extrabold flex items-center gap-1">
-                    🏆 Missiyalar bajarilishi
-                  </span>
-                  <span className="text-amber-600 dark:text-amber-400 font-extrabold">
-                    {user.questsCompleted}/{user.totalQuests}
-                  </span>
-                </div>
-                <div className="w-full h-1 bg-slate-100 dark:bg-neutral-800/50 rounded-full overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${Math.min(100, (user.questsCompleted / (user.totalQuests || 1)) * 100)}%` }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                    className="h-full bg-gradient-to-r from-amber-500 to-orange-400 rounded-full"
-                  />
-                </div>
-                <p className="text-[10px] leading-relaxed text-slate-500 dark:text-neutral-400 font-medium">
-                  Pulni tejash va bilim olish bo'yicha yakunlagan amaliy topshiriqlaringiz.
-                </p>
-              </div>
-            </motion.div>
+              }
+            />
           </div>
         </div>
       </div>
     </motion.div>
+  );
+}
+
+// Missing import fix
+function Crown(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M2 20h20M5 20l2-8 5 4 5-4 2 8" />
+      <circle cx="12" cy="6" r="2" />
+      <circle cx="4" cy="10" r="1.5" />
+      <circle cx="20" cy="10" r="1.5" />
+    </svg>
   );
 }

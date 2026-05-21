@@ -3,47 +3,85 @@
 @tailwind utilities;
 
 /* ===== GOOGLE FONTS ===== */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap');
 
-/* ===== APPLE MINIMALIST SYSTEM ===== */
+/* ===== B-DESIGN PREMIUM SYSTEM ===== */
 :root {
-  --bg-primary: #F5F5F7; /* Apple Off-White Background */
-  --bg-secondary: #FFFFFF; /* Pure White Card */
-  --text-primary: #1D1D1F; /* Apple Charcoal Black */
-  --text-secondary: #86868B; /* Apple Medium Grey */
-  --text-tertiary: #A1A1A6; /* Apple Light Grey */
-  --accent-color: #0071E3; /* Apple Premium Blue */
-  --success-color: #10B981; /* Pure Friendly Emerald */
-  --warning-color: #F59E0B; /* Warm Golden Amber */
-  --error-color: #FF3B30; /* Apple Vibrant Red */
-  --border-light: #E5E7EB; /* Very thin crisp border */
-  --border-focus: #A1A1A6;
-  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.01);
-  --shadow-card-hover: 0 12px 30px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
+  /* Core backgrounds */
+  --bg-primary: #F0F2F8;
+  --bg-secondary: rgba(255, 255, 255, 0.85);
+  --bg-glass: rgba(255, 255, 255, 0.6);
+  --bg-card: rgba(255, 255, 255, 0.9);
+
+  /* Typography */
+  --text-primary: #0A0A0F;
+  --text-secondary: #5C5F7A;
+  --text-tertiary: #9699B0;
+
+  /* Brand accent colors */
+  --gold: #F5A623;
+  --gold-light: #FFD166;
+  --gold-dark: #C47D0E;
+  --emerald: #06C270;
+  --emerald-dark: #049A59;
+  --cyan: #00D4FF;
+  --rose: #FF4E6E;
+  --purple: #7B5EA7;
+
+  /* Borders */
+  --border-light: rgba(0, 0, 0, 0.06);
+  --border-gold: rgba(245, 166, 35, 0.3);
+  --border-focus: rgba(6, 194, 112, 0.5);
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.03);
+  --shadow-card-hover: 0 16px 48px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.05);
+  --shadow-gold: 0 0 20px rgba(245, 166, 35, 0.25), 0 4px 16px rgba(245, 166, 35, 0.15);
+  --shadow-emerald: 0 0 20px rgba(6, 194, 112, 0.2), 0 4px 12px rgba(6, 194, 112, 0.1);
+  --shadow-glow-gold: 0 0 40px rgba(245, 166, 35, 0.3);
+
+  /* Gradients */
+  --gradient-gold: linear-gradient(135deg, #F5A623 0%, #FFD166 50%, #F5A623 100%);
+  --gradient-emerald: linear-gradient(135deg, #06C270 0%, #00D4FF 100%);
+  --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-card: linear-gradient(145deg, rgba(255,255,255,0.9) 0%, rgba(240,242,248,0.7) 100%);
+  --gradient-mesh: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120,119,198,0.15), transparent),
+                   radial-gradient(ellipse 60% 40% at 80% 60%, rgba(6,194,112,0.08), transparent),
+                   radial-gradient(ellipse 50% 60% at 20% 80%, rgba(245,166,35,0.06), transparent);
 }
 
-/* Dark Mode Variables */
 html.dark {
-  --bg-primary: #000000; /* Apple Absolute Black */
-  --bg-secondary: #1C1C1E; /* Apple Dark Slate Card */
-  --text-primary: #F5F5F7; /* Apple Off-White Text */
-  --text-secondary: #86868B; /* Apple Slate Grey */
-  --text-tertiary: #48484A;
-  --accent-color: #0A84FF; /* Apple Neon Blue */
-  --success-color: #34C759; /* Apple iOS Green */
-  --warning-color: #FF9500; /* Apple iOS Orange */
-  --error-color: #FF453A; /* Apple iOS Red */
-  --border-light: #2C2C2E; /* Thin dark card border */
-  --border-focus: #48484A;
-  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.2);
-  --shadow-card-hover: 0 12px 36px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.3);
+  --bg-primary: #080810;
+  --bg-secondary: rgba(18, 18, 28, 0.95);
+  --bg-glass: rgba(18, 18, 28, 0.7);
+  --bg-card: rgba(22, 22, 35, 0.95);
+
+  --text-primary: #F0F2FF;
+  --text-secondary: #8888AA;
+  --text-tertiary: #5555777;
+
+  --border-light: rgba(255, 255, 255, 0.06);
+  --border-gold: rgba(245, 166, 35, 0.25);
+  --border-focus: rgba(6, 194, 112, 0.4);
+
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-card: 0 4px 32px rgba(0,0,0,0.5), 0 1px 4px rgba(0,0,0,0.3);
+  --shadow-card-hover: 0 16px 64px rgba(0,0,0,0.7), 0 4px 16px rgba(0,0,0,0.4);
+  --shadow-gold: 0 0 30px rgba(245, 166, 35, 0.35), 0 4px 20px rgba(245, 166, 35, 0.2);
+  --shadow-emerald: 0 0 30px rgba(6, 194, 112, 0.3), 0 4px 16px rgba(6, 194, 112, 0.15);
+
+  --gradient-card: linear-gradient(145deg, rgba(22,22,35,0.95) 0%, rgba(14,14,22,0.9) 100%);
+  --gradient-mesh: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(100,80,200,0.2), transparent),
+                   radial-gradient(ellipse 60% 40% at 80% 60%, rgba(6,194,112,0.12), transparent),
+                   radial-gradient(ellipse 50% 60% at 20% 80%, rgba(245,166,35,0.08), transparent);
 }
 
+/* ===== RESET ===== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.2s ease;
 }
 
 html {
@@ -52,163 +90,324 @@ html {
 
 body {
   background-color: var(--bg-primary);
+  background-image: var(--gradient-mesh);
+  background-attachment: fixed;
   color: var(--text-primary);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   overflow-x: hidden;
   min-height: 100vh;
-  letter-spacing: -0.011em;
+  letter-spacing: -0.015em;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ===== CUSTOM SCROLLBAR ===== */
-::-webkit-scrollbar {
-  width: 6px;
+/* Fast base transitions */
+*, *::before, *::after {
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.1s ease, opacity 0.15s ease;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--bg-primary);
-}
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(245,166,35,0.3); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(245,166,35,0.6); }
 
-::-webkit-scrollbar-thumb {
-  background: #C1C1C4;
-  border-radius: 99px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-secondary);
-}
-
-/* ===== UTILITY CLASSES ===== */
+/* ===== PREMIUM COMPONENT SYSTEM ===== */
 @layer components {
-  /* Apple-Style Minimalist Flat Card */
+
+  /* Glass Card — core building block */
   .glass-card {
-    background-color: var(--bg-secondary);
+    background: var(--bg-card);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     border: 1px solid var(--border-light);
-    border-radius: 20px;
+    border-radius: 24px;
     box-shadow: var(--shadow-card);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--gradient-card);
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 0;
   }
 
   .glass-card:hover {
     box-shadow: var(--shadow-card-hover);
-    transform: translateY(-2px);
-    border-color: var(--border-focus);
+    transform: translateY(-3px);
+    border-color: var(--border-gold);
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
-  /* Text glows removed - replaced with pure minimalist styles */
-  .neon-text-green {
-    color: var(--success-color);
-    font-weight: 700;
+  /* Gold card — premium shimmer */
+  .gold-card {
+    background: linear-gradient(135deg, rgba(245,166,35,0.1) 0%, rgba(255,209,102,0.08) 100%);
+    border: 1px solid var(--border-gold);
+    border-radius: 24px;
+    box-shadow: var(--shadow-gold);
+    position: relative;
+    overflow: hidden;
   }
 
-  .neon-text-pink {
-    color: #DB2777;
-    font-weight: 700;
+  .gold-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+    background-size: 200% 100%;
+    animation: shimmer 3s infinite;
+    pointer-events: none;
+    border-radius: inherit;
   }
 
-  .neon-text-cyan {
-    color: var(--accent-color);
-    font-weight: 700;
+  /* Metric cards */
+  .metric-card {
+    background: var(--gradient-card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
-  .neon-text-yellow {
-    color: var(--warning-color);
-    font-weight: 700;
+  .metric-card:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-4px) scale(1.01);
+    border-color: var(--border-gold);
   }
 
-  /* Pure Minimalist Gradient text */
+  /* Gradient text */
   .gradient-text {
-    background: linear-gradient(135deg, #1D1D1F, #0071E3, #059669);
+    background: linear-gradient(135deg, #667eea 0%, #06C270 60%, #F5A623 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   html.dark .gradient-text {
-    background: linear-gradient(135deg, #FFFFFF, #0A84FF, #34C759);
+    background: linear-gradient(135deg, #A78BFA 0%, #34D399 50%, #FBBF24 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .gradient-text-gold {
-    background: linear-gradient(135deg, #B45309, #D97706);
+    background: linear-gradient(135deg, #F5A623 0%, #FFD166 50%, #C47D0E 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Apple minimal buttons */
-  .btn-neon-green {
-    background: #E6F4EA;
-    border: 1px solid #C2E7CB;
-    color: #137333;
-    transition: all 0.2s ease-in-out;
+  .gradient-text-emerald {
+    background: linear-gradient(135deg, #06C270 0%, #00D4FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  .btn-neon-green:hover {
-    background: #D2EBD4;
-    border-color: #34A853;
+  /* Neon glow text */
+  .neon-text-gold {
+    color: var(--gold);
+    text-shadow: 0 0 20px rgba(245, 166, 35, 0.5), 0 0 40px rgba(245, 166, 35, 0.3);
+  }
+
+  .neon-text-green {
+    color: var(--emerald);
+    text-shadow: 0 0 20px rgba(6, 194, 112, 0.4);
+  }
+
+  /* Premium buttons */
+  .btn-gold {
+    background: var(--gradient-gold);
+    border: none;
+    color: #0A0A0F;
+    font-weight: 700;
+    border-radius: 14px;
+    box-shadow: var(--shadow-gold);
+    transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .btn-gold:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-glow-gold);
+  }
+
+  .btn-gold:active {
+    transform: scale(0.97);
+  }
+
+  .btn-glass {
+    background: var(--bg-glass);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    transition: all 0.12s ease;
+  }
+
+  .btn-glass:hover {
+    background: rgba(245, 166, 35, 0.08);
+    border-color: var(--border-gold);
     transform: translateY(-1px);
   }
 
-  .btn-neon-red {
-    background: #FCE8E6;
-    border: 1px solid #FAD2CF;
-    color: #C5221F;
-    transition: all 0.2s ease-in-out;
+  /* Coin badge */
+  .coin-badge {
+    background: linear-gradient(135deg, rgba(245,166,35,0.15), rgba(255,209,102,0.1));
+    border: 1px solid rgba(245,166,35,0.3);
+    border-radius: 99px;
+    font-weight: 800;
+    color: var(--gold-dark);
+    transition: all 0.12s ease;
   }
 
-  .btn-neon-red:hover {
-    background: #FAD2CF;
-    border-color: #EA4335;
-    transform: translateY(-1px);
+  html.dark .coin-badge {
+    color: var(--gold-light);
+    background: linear-gradient(135deg, rgba(245,166,35,0.2), rgba(255,209,102,0.1));
   }
 
-  /* Soft solid bg, no heavy grids */
-  .cyber-bg {
-    background-color: var(--bg-primary);
+  /* Progress bar */
+  .progress-bar {
+    height: 6px;
+    background: rgba(0,0,0,0.06);
+    border-radius: 99px;
+    overflow: hidden;
   }
 
-  .particle {
-    display: none; /* Hide floating neon blobs for a clean minimalist UI */
+  html.dark .progress-bar {
+    background: rgba(255,255,255,0.08);
   }
 
-  /* Progress bar custom style */
-  .progress-neon {
-    background: var(--accent-color);
-    border-radius: 999px;
+  .progress-fill-gold {
+    height: 100%;
+    background: var(--gradient-gold);
+    border-radius: 99px;
+    box-shadow: 0 0 8px rgba(245, 166, 35, 0.4);
+  }
+
+  .progress-fill-emerald {
+    height: 100%;
+    background: var(--gradient-emerald);
+    border-radius: 99px;
+    box-shadow: 0 0 8px rgba(6, 194, 112, 0.4);
   }
 }
 
-/* Base custom utility styles for clean grids */
+/* ===== KEYFRAME ANIMATIONS ===== */
+
+/* Fast shimmer for gold elements */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Coin float animation */
+@keyframes float-coin {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  25% { transform: translateY(-8px) rotate(5deg); }
+  75% { transform: translateY(-4px) rotate(-3deg); }
+}
+
+/* Gold pulse glow */
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 10px rgba(245,166,35,0.3); }
+  50% { box-shadow: 0 0 30px rgba(245,166,35,0.6), 0 0 60px rgba(245,166,35,0.2); }
+}
+
+/* Coin spin Y-axis */
+@keyframes coin-spin {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(360deg); }
+}
+
+/* Number count up fade */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(6px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Gentle float */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Fast bounce in */
+@keyframes bounce-in {
+  0% { transform: scale(0.7); opacity: 0; }
+  60% { transform: scale(1.05); opacity: 1; }
+  80% { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+
+/* Sparkle */
+@keyframes sparkle {
+  0%, 100% { transform: scale(0) rotate(0deg); opacity: 0; }
+  50% { transform: scale(1) rotate(180deg); opacity: 1; }
+}
+
+/* Slide up */
+@keyframes slide-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* ===== UTILITY ANIMATIONS ===== */
+.animate-float { animation: float 4s ease-in-out infinite; }
+.animate-float-delayed { animation: float 4s ease-in-out infinite 1.5s; }
+.animate-shimmer { animation: shimmer 2s linear infinite; background-size: 200% 100%; }
+.animate-pulse-gold { animation: pulse-gold 2s ease-in-out infinite; }
+.animate-coin-spin { animation: coin-spin 2s linear infinite; }
+.animate-bounce-in { animation: bounce-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.animate-slide-up { animation: slide-up 0.25s ease-out forwards; }
+.count-animation { animation: countUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
+/* ===== MISC UTILITIES ===== */
 .bg-grid-pattern {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-color: var(--bg-primary);
+  background-image: var(--gradient-mesh);
+  background-attachment: fixed;
 }
 
-.count-animation {
-  animation: countUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes countUp {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Hide spin-buttons globally for input type="number" */
+/* Hide spin buttons */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none !important;
   margin: 0 !important;
 }
+input[type=number] { -moz-appearance: textfield !important; }
 
-input[type=number] {
-  -moz-appearance: textfield !important;
+/* Shop item card */
+.shop-item {
+  background: var(--gradient-card);
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 
+.shop-item:hover {
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-gold);
+  transform: translateY(-4px) scale(1.01);
+}
+
+.shop-item.owned {
+  border-color: var(--emerald);
+  box-shadow: var(--shadow-emerald);
+}
+
+.shop-item.active {
+  border-color: var(--gold);
+  box-shadow: var(--shadow-glow-gold);
+}

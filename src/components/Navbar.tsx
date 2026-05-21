@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Bell, Settings, Zap, Sun, Moon, RotateCcw } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Bell, Settings, Zap, Sun, Moon, ShoppingBag, TrendingUp } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useUser } from "@/context/UserContext";
 import NotificationsDropdown from "./NotificationsDropdown";
@@ -13,28 +13,35 @@ function formatNumber(n: number): string {
 interface NavbarProps {
   onOpenProfile: () => void;
   onOpenSettings: () => void;
+  onOpenShop: () => void;
 }
 
-export default function Navbar({ onOpenProfile, onOpenSettings }: NavbarProps) {
-  const { user, resetData } = useUser();
+export default function Navbar({ onOpenProfile, onOpenSettings, onOpenShop }: NavbarProps) {
+  const { user } = useUser();
   const [isScrolled, setIsScrolled] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [prevCoins, setPrevCoins] = useState(user.coins);
+  const [coinBounce, setCoinBounce] = useState(false);
 
   const unreadCount = user.notifications.filter((n) => !n.read).length;
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
-
-    // Read theme preference
     const initialTheme = document.documentElement.className.includes("dark") ? "dark" : "light";
     setTheme(initialTheme);
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Coin bounce animation on change
+  useEffect(() => {
+    if (user.coins !== prevCoins) {
+      setCoinBounce(true);
+      setPrevCoins(user.coins);
+      setTimeout(() => setCoinBounce(false), 600);
+    }
+  }, [user.coins, prevCoins]);
 
   const toggleTheme = () => {
     const nextTheme = theme === "light" ? "dark" : "light";
@@ -43,160 +50,216 @@ export default function Navbar({ onOpenProfile, onOpenSettings }: NavbarProps) {
     localStorage.setItem("theme", nextTheme);
   };
 
-  const handleSystemReset = () => {
-    const confirm = window.confirm(
-      "Diqqat! Ushbu amal barcha kiritilgan tranzaksiyalar, jamg'armalar, missiyalar tarixi va profilingizni butunlay o'chirib yuboradi. Tizim 0 so'mdan qayta boshlanadi. Davom etasizmi?"
-    );
-    if (confirm) {
-      resetData();
-      window.location.reload();
-    }
-  };
-
   return (
     <motion.nav
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      transition={{ duration: 0.4, ease: [0.34, 1.56, 0.64, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         isScrolled
-          ? "bg-white/80 dark:bg-black/80 backdrop-blur-xl border-b border-slate-200/50 dark:border-neutral-800 shadow-md shadow-slate-100/5 dark:shadow-none"
+          ? "bg-white/80 dark:bg-[#080810]/90 backdrop-blur-2xl border-b border-black/5 dark:border-white/5 shadow-lg shadow-black/5"
           : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
+          
           {/* Logo */}
           <motion.div
-            className="flex items-center gap-2"
+            className="flex items-center gap-2.5 cursor-pointer"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
+            transition={{ duration: 0.1 }}
           >
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-emerald-500/10 to-cyan-500/10 border border-emerald-500/20 flex items-center justify-center">
-              <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-500" />
+            <div className="relative">
+              <motion.div
+                animate={{ rotate: [0, 10, -10, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl flex items-center justify-center shadow-lg"
+                style={{ background: "linear-gradient(135deg, #F5A623, #FFD166, #C47D0E)" }}
+              >
+                <Zap className="w-5 h-5 text-white drop-shadow" fill="white" />
+              </motion.div>
+              {/* Glow effect */}
+              <div className="absolute inset-0 rounded-2xl blur-lg opacity-40"
+                style={{ background: "linear-gradient(135deg, #F5A623, #FFD166)" }} />
             </div>
-            <h1 className="text-xl sm:text-2xl font-bold gradient-text tracking-tight font-sans">
-              MoliyaGo
-            </h1>
+            <div>
+              <h1 className="text-xl sm:text-2xl font-black tracking-tight" style={{
+                background: "linear-gradient(135deg, #F5A623 0%, #C47D0E 50%, #06C270 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}>
+                MoliyaGo
+              </h1>
+              <p className="text-[9px] text-slate-400 dark:text-neutral-500 font-bold tracking-widest uppercase hidden sm:block -mt-0.5">
+                Finance · Gamified
+              </p>
+            </div>
           </motion.div>
 
-          {/* Right side - User Info */}
-          <div className="flex items-center gap-1.5 sm:gap-3">
-            {/* System Clear Cache Button */}
-            <motion.button
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.96 }}
-              onClick={handleSystemReset}
-              className="hidden xl:flex items-center gap-1.5 px-3 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/15 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-black cursor-pointer shadow-sm transition-all"
-              title="Tizimni tozalash va 0 so'mdan boshlash"
+          {/* Right side */}
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            
+            {/* XP / Level pill — desktop only */}
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              transition={{ duration: 0.1 }}
+              className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-purple-50 dark:bg-purple-950/20 border border-purple-100 dark:border-purple-900/40"
             >
-              <RotateCcw className="w-3.5 h-3.5" />
-              <span className="hidden md:inline">Tizimni tozalash (0 so'mdan boshlash)</span>
-              <span className="md:hidden">Tozalash</span>
+              <TrendingUp className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+              <div className="flex flex-col gap-0.5">
+                <span className="text-[9px] text-purple-500 font-bold uppercase tracking-wide">LVL {user.level}</span>
+                <div className="w-16 h-1 bg-purple-100 dark:bg-purple-900/30 rounded-full overflow-hidden">
+                  <motion.div
+                    className="h-full rounded-full"
+                    style={{ background: "linear-gradient(90deg, #7B5EA7, #A78BFA)" }}
+                    initial={{ width: 0 }}
+                    animate={{ width: `${((user.xp % 500) / 500) * 100}%` }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                  />
+                </div>
+              </div>
+            </motion.div>
+
+            {/* 🛍️ Shop Button */}
+            <motion.button
+              whileHover={{ scale: 1.06 }}
+              whileTap={{ scale: 0.94 }}
+              transition={{ duration: 0.1 }}
+              onClick={onOpenShop}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl cursor-pointer transition-all border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/20 hover:bg-amber-100 dark:hover:bg-amber-950/40 hover:shadow-lg hover:shadow-amber-500/10"
+              title="Tanga do'koni"
+            >
+              <ShoppingBag className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+              <span className="hidden sm:inline text-xs font-black text-amber-700 dark:text-amber-400">Do'kon</span>
             </motion.button>
 
-            {/* Theme Toggle Button */}
+            {/* Theme Toggle */}
             <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.06 }}
+              whileTap={{ scale: 0.94 }}
+              transition={{ duration: 0.1 }}
               onClick={toggleTheme}
-              className="p-2 rounded-xl bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 hover:border-emerald-300 dark:hover:border-emerald-700 transition-all cursor-pointer shadow-sm"
-              title={theme === "light" ? "Tungi rejimga o'tish" : "Kunduzgi rejimga o'tish"}
+              className="p-2 rounded-xl bg-slate-50 dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 hover:border-slate-300 dark:hover:border-neutral-700 transition-all cursor-pointer"
+              title={theme === "light" ? "Tungi rejim" : "Kunduzgi rejim"}
             >
-              {theme === "light" ? (
-                <Moon className="w-5 h-5 text-slate-500 dark:text-neutral-400" />
-              ) : (
-                <Sun className="w-5 h-5 text-amber-500" />
-              )}
+              <AnimatePresence mode="wait">
+                {theme === "light" ? (
+                  <motion.div
+                    key="moon"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <Moon className="w-4 h-4 text-slate-500" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="sun"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <Sun className="w-4 h-4 text-amber-400" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.button>
 
             {/* Notification Bell */}
             <div className="relative">
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.06 }}
+                whileTap={{ scale: 0.94 }}
+                transition={{ duration: 0.1 }}
                 onClick={() => setShowNotifications(!showNotifications)}
-                className="relative p-2 rounded-xl bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 hover:border-emerald-300 dark:hover:border-emerald-700 transition-all cursor-pointer shadow-sm"
+                className="relative p-2 rounded-xl bg-slate-50 dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 hover:border-slate-300 dark:hover:border-neutral-700 transition-all cursor-pointer"
               >
-                <Bell className="w-5 h-5 text-slate-500 dark:text-neutral-400" />
-                {unreadCount > 0 && (
-                  <motion.span
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full flex items-center justify-center text-[9px] font-bold text-white shadow-sm"
-                  >
-                    {unreadCount}
-                  </motion.span>
-                )}
+                <motion.div
+                  animate={unreadCount > 0 ? { rotate: [0, -15, 15, -10, 10, 0] } : {}}
+                  transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 3 }}
+                >
+                  <Bell className="w-4 h-4 text-slate-500 dark:text-neutral-400" />
+                </motion.div>
+                <AnimatePresence>
+                  {unreadCount > 0 && (
+                    <motion.span
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      exit={{ scale: 0 }}
+                      transition={{ type: "spring", stiffness: 500, damping: 20 }}
+                      className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full flex items-center justify-center text-[9px] font-black text-white shadow"
+                    >
+                      {unreadCount}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
               </motion.button>
-
-              <NotificationsDropdown
-                isOpen={showNotifications}
-                onClose={() => setShowNotifications(false)}
-              />
+              <NotificationsDropdown isOpen={showNotifications} onClose={() => setShowNotifications(false)} />
             </div>
 
             {/* Settings */}
             <motion.button
-              whileHover={{ scale: 1.05, rotate: 45 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.06, rotate: 90 }}
+              whileTap={{ scale: 0.94 }}
+              transition={{ duration: 0.15 }}
               onClick={onOpenSettings}
-              className="hidden sm:flex p-2 rounded-xl bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 hover:border-emerald-300 dark:hover:border-emerald-700 transition-all cursor-pointer shadow-sm"
+              className="hidden sm:flex p-2 rounded-xl bg-slate-50 dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 hover:border-slate-300 dark:hover:border-neutral-700 transition-all cursor-pointer"
             >
-              <Settings className="w-5 h-5 text-slate-500 dark:text-neutral-400" />
+              <Settings className="w-4 h-4 text-slate-500 dark:text-neutral-400" />
             </motion.button>
 
-            {/* Divider */}
-            <div className="hidden sm:block w-px h-8 bg-slate-200 dark:bg-neutral-800" />
-
-            {/* Level Badge */}
+            {/* Coins display */}
             <motion.div
               whileHover={{ scale: 1.03 }}
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-pink-500/10 to-rose-500/10 dark:from-pink-500/20 dark:to-rose-500/20 border border-pink-500/20 dark:border-pink-500/30"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 cursor-default"
+              title="Sizning tangalaringiz"
             >
-              <span className="text-xs font-semibold text-pink-600 dark:text-pink-400">DARAJA</span>
               <motion.span
-                key={user.level}
-                initial={{ scale: 1.3 }}
-                animate={{ scale: 1 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="text-sm font-bold text-slate-800 dark:text-neutral-200"
+                animate={coinBounce ? { rotate: [0, 360], scale: [1, 1.3, 1] } : {}}
+                transition={{ duration: 0.4 }}
+                className="text-base"
               >
-                {user.level}
+                🪙
               </motion.span>
-            </motion.div>
-
-            {/* Coins */}
-            <motion.div
-              whileHover={{ scale: 1.03 }}
-              title="🪙 Tangalar — platformadagi yutuqlaringiz! Missiyalar bajarib va AI o'yinlarida to'g'ri qarorlar qabul qilib yig'asiz. Kelajakda yangi imkoniyatlar uchun ishlatiladi!"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 cursor-help"
-            >
-              <span className="text-base">🪙</span>
               <motion.span
                 key={user.coins}
-                initial={{ scale: 1.3 }}
-                animate={{ scale: 1 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="text-sm font-bold text-amber-600 dark:text-amber-400"
+                initial={{ scale: 1.3, color: "#F5A623" }}
+                animate={{ scale: 1, color: "inherit" }}
+                transition={{ duration: 0.25 }}
+                className="text-sm font-black text-amber-700 dark:text-amber-400"
               >
                 {formatNumber(user.coins)}
               </motion.span>
             </motion.div>
 
+            {/* Divider */}
+            <div className="hidden sm:block w-px h-6 bg-slate-200 dark:bg-neutral-800 mx-0.5" />
+
             {/* Avatar */}
             <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.06 }}
+              whileTap={{ scale: 0.94 }}
+              transition={{ duration: 0.1 }}
               onClick={onOpenProfile}
               className="relative cursor-pointer"
             >
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full opacity-40 blur-[2px]" />
-              <div className="relative w-9 h-9 rounded-full bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 border-2 border-emerald-500/30 flex items-center justify-center ring-2 ring-emerald-500/10">
-                <span className="text-sm font-bold text-slate-800 dark:text-neutral-100">
+              {/* Glow ring */}
+              <div className="absolute -inset-1 rounded-full opacity-60 blur-[3px]"
+                style={{ background: "linear-gradient(135deg, #F5A623, #06C270, #F5A623)" }} />
+              <div className="relative w-9 h-9 rounded-full flex items-center justify-center border-2 border-white dark:border-neutral-900 shadow-md"
+                style={{ background: "linear-gradient(135deg, rgba(245,166,35,0.2), rgba(6,194,112,0.2))" }}
+              >
+                <span className="text-sm font-black text-slate-800 dark:text-neutral-100">
                   {user.name ? user.name.charAt(0).toUpperCase() : "M"}
                 </span>
               </div>
+              {/* Online indicator */}
+              <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2 border-white dark:border-neutral-900 shadow" />
             </motion.button>
           </div>
         </div>

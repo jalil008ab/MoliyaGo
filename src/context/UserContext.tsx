@@ -30,6 +30,11 @@ export interface UserData {
   notifications: Notification[];
   level: number;
   transactions: Transaction[];
+  purchasedItems: string[];
+  activeTheme: string;
+  activeFrame: string;
+  activeBadge: string;
+  activeScene: string;
 }
 
 export interface Notification {
@@ -60,12 +65,17 @@ const defaultUser: UserData = {
   notifications: [],
   level: 1,
   transactions: [],
+  purchasedItems: [],
+  activeTheme: "default",
+  activeFrame: "default",
+  activeBadge: "",
+  activeScene: "default",
 };
 
 interface UserContextType {
   user: UserData;
   onboardUser: (data: Partial<UserData>) => void;
-  addMoney: (amount: number) => boolean; // returns true if successful
+  addMoney: (amount: number) => boolean;
   spendMoney: (amount: number) => void;
   completeQuest: (xpReward: number, coinReward: number) => void;
   handleAISituation: (xpReward: number, coinReward: number, balanceChange: number, savedChange: number) => void;
@@ -76,6 +86,9 @@ interface UserContextType {
   markAllNotificationsRead: () => void;
   addTransaction: (type: "income" | "expense", amount: number, title: string, category: string) => void;
   deleteTransaction: (id: string) => void;
+  spendCoins: (amount: number) => boolean;
+  purchaseItem: (itemId: string, cost: number, category: string) => boolean;
+  activateItem: (itemId: string, category: string) => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -88,17 +101,21 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserData>(defaultUser);
   const [isHydrated, setIsHydrated] = useState(false);
 
-  // Load from localStorage on mount
   useEffect(() => {
     try {
       const stored = localStorage.getItem("moliyago_user");
       if (stored) {
         const parsed = JSON.parse(stored);
-        setUser({ 
-          ...defaultUser, 
-          ...parsed, 
+        setUser({
+          ...defaultUser,
+          ...parsed,
           level: calculateLevel(parsed.xp || 100),
-          transactions: parsed.transactions || defaultUser.transactions
+          transactions: parsed.transactions || defaultUser.transactions,
+          purchasedItems: parsed.purchasedItems || [],
+          activeTheme: parsed.activeTheme || "default",
+          activeFrame: parsed.activeFrame || "default",
+          activeBadge: parsed.activeBadge || "",
+          activeScene: parsed.activeScene || "default",
         });
       }
     } catch {
@@ -324,15 +341,59 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     setUser((prev) => {
       const tx = prev.transactions.find((t) => t.id === id);
       if (!tx) return prev;
-
       const balanceChange = tx.type === "income" ? -tx.amount : tx.amount;
       const newBalance = Math.max(0, prev.balance + balanceChange);
+      return { ...prev, balance: newBalance, transactions: prev.transactions.filter((t) => t.id !== id) };
+    });
+  }, []);
 
-      return {
-        ...prev,
-        balance: newBalance,
-        transactions: prev.transactions.filter((t) => t.id !== id),
+  const spendCoins = useCallback((amount: number): boolean => {
+    let success = false;
+    setUser((prev) => {
+      if (prev.coins < amount) return prev;
+      success = true;
+      return { ...prev, coins: prev.coins - amount };
+    });
+    return success;
+  }, []);
+
+  const purchaseItem = useCallback((itemId: string, cost: number, category: string): boolean => {
+    let success = false;
+    setUser((prev) => {
+      if (prev.coins < cost) return prev;
+      if (prev.purchasedItems.includes(itemId)) return prev;
+      success = true;
+      const updates: Partial<UserData> = {
+        coins: prev.coins - cost,
+        purchasedItems: [...prev.purchasedItems, itemId],
       };
+      // Auto-activate on purchase
+      if (category === "theme") updates.activeTheme = itemId;
+      else if (category === "frame") updates.activeFrame = itemId;
+      else if (category === "badge") updates.activeBadge = itemId;
+      else if (category === "scene") updates.activeScene = itemId;
+      const notif: Notification = {
+        id: `shop-${Date.now()}`,
+        title: "Xarid muvaffaqiyatli! 🛍️",
+        message: `Yangi item sotib olindi va faollashtirildi! -${cost} 🪙`,
+        type: "reward",
+        time: new Date().toLocaleTimeString("uz-UZ", { hour: "2-digit", minute: "2-digit" }),
+        read: false,
+      };
+      return { ...prev, ...updates, notifications: [notif, ...prev.notifications].slice(0, 20) };
+    });
+    return success;
+  }, []);
+
+  const activateItem = useCallback((itemId: string, category: string) => {
+    setUser((prev) => {
+      if (!prev.purchasedItems.includes(itemId) && itemId !== "default") return prev;
+      const updates: Partial<UserData> = {};
+      if (category === "theme") updates.activeTheme = itemId;
+      else if (category === "frame") updates.activeFrame = itemId;
+      else if (category === "badge") updates.activeBadge = itemId;
+      else if (category === "scene") updates.activeScene = itemId;
+      return { ...prev, ...updates };
     });
   }, []);
 
@@ -357,6 +418,9 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         markAllNotificationsRead,
         addTransaction,
         deleteTransaction,
+        spendCoins,
+        purchaseItem,
+        activateItem,
       }}
     >
       {children}

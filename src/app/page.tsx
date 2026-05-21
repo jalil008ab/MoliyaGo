@@ -11,6 +11,7 @@ import FloatingParticles from "@/components/FloatingParticles";
 import OnboardingWizard from "@/components/OnboardingWizard";
 import ProfileDrawer from "@/components/ProfileDrawer";
 import SettingsDrawer from "@/components/SettingsDrawer";
+import CoinShop from "@/components/CoinShop";
 import { useUser } from "@/context/UserContext";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -18,37 +19,51 @@ export default function Home() {
   const { user } = useUser();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isShopOpen, setIsShopOpen] = useState(false);
+
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 24 },
+    visible: (delay: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.3, delay, ease: [0.34, 1.56, 0.64, 1] }
+    })
+  };
 
   return (
     <>
-      {/* Onboarding Wizard */}
+      {/* Onboarding */}
       <AnimatePresence>
         {!user.hasOnboarded && <OnboardingWizard />}
       </AnimatePresence>
 
       <FloatingParticles />
+
       <Navbar
         onOpenProfile={() => setIsProfileOpen(true)}
         onOpenSettings={() => setIsSettingsOpen(true)}
+        onOpenShop={() => setIsShopOpen(true)}
       />
 
-      <main className="relative z-10 pt-24 sm:pt-28 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        {/* Section 1: Hero Dashboard */}
+      <main className="relative z-10 pt-24 sm:pt-28 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        {/* Hero Dashboard */}
         <motion.section
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="mb-8"
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+          custom={0}
+          className="mb-6"
         >
           <HeroDashboardCard />
         </motion.section>
 
-        {/* Section 2: Goals & Transactions + Quests & AI Advisor */}
+        {/* Goals + Quests + AI */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8"
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+          custom={0.1}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6"
         >
           <div className="lg:col-span-7">
             <GoalProgressCard />
@@ -59,12 +74,13 @@ export default function Home() {
           </div>
         </motion.section>
 
-        {/* Section 3: AI Situation Simulator */}
+        {/* AI Situation Simulator */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mb-8"
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+          custom={0.2}
+          className="mb-6"
         >
           <AISituationCard />
         </motion.section>
@@ -73,27 +89,27 @@ export default function Home() {
         <motion.footer
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="text-center pt-8 pb-4 border-t border-slate-200 dark:border-neutral-800"
+          transition={{ delay: 0.5 }}
+          className="text-center pt-8 pb-4"
         >
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-500/20 to-transparent" />
+            <span className="text-amber-500 text-lg">🪙</span>
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-500/20 to-transparent" />
+          </div>
           <p className="text-xs text-slate-500 dark:text-neutral-400 font-medium">
             © 2026 MoliyaGo — Yoshlar uchun moliyaviy savodxonlik platformasi
           </p>
           <p className="text-[10px] text-slate-400 dark:text-neutral-500 font-bold mt-1">
-            O&apos;yin orqali o&apos;rganish 🎮
+            O&apos;yin orqali o&apos;rganing · Pul tejang · Maqsadga erishing 🚀
           </p>
         </motion.footer>
       </main>
 
-      {/* Drawers moved globally to resolve CSS stacking context */}
-      <ProfileDrawer
-        isOpen={isProfileOpen}
-        onClose={() => setIsProfileOpen(false)}
-      />
-      <SettingsDrawer
-        isOpen={isSettingsOpen}
-        onClose={() => setIsSettingsOpen(false)}
-      />
+      {/* Drawers */}
+      <ProfileDrawer isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
+      <SettingsDrawer isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
+      <CoinShop isOpen={isShopOpen} onClose={() => setIsShopOpen(false)} />
     </>
   );
 }
