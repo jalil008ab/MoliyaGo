@@ -61,7 +61,7 @@ export default function Navbar({ onOpenProfile, onOpenSettings, onOpenShop }: Na
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           
           {/* Logo */}
@@ -85,7 +85,7 @@ export default function Navbar({ onOpenProfile, onOpenSettings, onOpenShop }: Na
                 style={{ background: "linear-gradient(135deg, #F5A623, #FFD166)" }} />
             </div>
             <div>
-              <h1 className="text-xl sm:text-2xl font-black tracking-tight" style={{
+              <h1 className="text-base xs:text-lg sm:text-2xl font-black tracking-tight" style={{
                 background: "linear-gradient(135deg, #F5A623 0%, #C47D0E 50%, #06C270 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
@@ -100,7 +100,7 @@ export default function Navbar({ onOpenProfile, onOpenSettings, onOpenShop }: Na
           </motion.div>
 
           {/* Right side */}
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="flex items-center gap-0.5 xs:gap-1.5 sm:gap-2">
             
             {/* XP / Level pill — desktop only */}
             <motion.div

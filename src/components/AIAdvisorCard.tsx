@@ -262,8 +262,8 @@ export default function AIAdvisorCard() {
           disabled={loading}
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-pink-500/10 to-rose-500/10 dark:from-pink-500/20 dark:to-rose-500/20 border border-pink-500/20 dark:border-pink-500/30 hover:border-pink-500/30 dark:hover:border-pink-500/40 text-pink-600 dark:text-pink-400 text-xs font-black transition-all cursor-pointer shadow-sm hover:shadow-md disabled:opacity-50"
         >
-          Maslahatni yangilash
-          <ArrowRight className="w-3.5 h-3.5" />
+          <span><span className="hidden xs:inline">Maslahatni </span>yangilash</span>
+          <ArrowRight className="w-3.5 h-3.5 flex-shrink-0" />
         </button>
       </div>
     </motion.div>

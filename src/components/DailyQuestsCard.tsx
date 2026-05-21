@@ -344,22 +344,22 @@ export default function DailyQuestsCard() {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => handleAction(quest)}
-                        className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-gradient-to-r from-pink-50 to-rose-50 dark:from-pink-950/20 dark:to-rose-950/20 border border-pink-200 dark:border-pink-900 text-pink-600 dark:text-pink-400 text-xs font-extrabold hover:shadow-sm transition-all flex-shrink-0 cursor-pointer"
+                        className="flex items-center gap-1 px-2.5 xs:px-3 py-1.5 rounded-xl bg-gradient-to-r from-pink-50 to-rose-50 dark:from-pink-950/20 dark:to-rose-950/20 border border-pink-200 dark:border-pink-900 text-pink-600 dark:text-pink-400 text-xs font-extrabold hover:shadow-sm transition-all flex-shrink-0 cursor-pointer"
                       >
                         {quest.type === "lesson" ? (
                           <>
-                            Darsga o&apos;tish
-                            <BookOpen className="w-3.5 h-3.5 ml-0.5" />
+                            <span>Dars<span className="hidden xs:inline">ga o&apos;tish</span></span>
+                            <BookOpen className="w-3.5 h-3.5 ml-0.5 flex-shrink-0" />
                           </>
                         ) : quest.type === "expense-log" ? (
                           <>
-                            Kiritish
-                            <TrendingDown className="w-3.5 h-3.5 ml-0.5" />
+                            <span>Kiritish</span>
+                            <TrendingDown className="w-3.5 h-3.5 ml-0.5 flex-shrink-0" />
                           </>
                         ) : (
                           <>
-                            Kiritish
-                            <TrendingUp className="w-3.5 h-3.5 ml-0.5" />
+                            <span>Kiritish</span>
+                            <TrendingUp className="w-3.5 h-3.5 ml-0.5 flex-shrink-0" />
                           </>
                         )}
                       </motion.button>

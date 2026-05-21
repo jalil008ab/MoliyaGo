@@ -357,10 +357,10 @@ export default function CoinShop({ isOpen, onClose }: CoinShopProps) {
                             </div>
                           )}
 
-                          <div className="flex items-center gap-4 p-4">
+                          <div className="flex items-center gap-3 xs:gap-4 p-3 xs:p-4">
                             {/* Preview swatch */}
                             <div
-                              className="w-16 h-16 rounded-xl flex-shrink-0 flex items-center justify-center text-3xl shadow-inner relative overflow-hidden"
+                              className="w-12 h-12 xs:w-16 xs:h-16 rounded-xl flex-shrink-0 flex items-center justify-center text-2xl xs:text-3xl shadow-inner relative overflow-hidden"
                               style={{ background: item.preview }}
                             >
                               <span className="relative z-10 drop-shadow-lg">{item.emoji}</span>

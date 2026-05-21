@@ -212,7 +212,7 @@ export default function GoalProgressCard() {
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
-              <span className="relative z-10 text-sm font-black">
+              <span className="relative z-10 text-xs xs:text-sm font-black whitespace-nowrap">
                 {tab === "savings" ? "💰 Jamg'arma Yig'ish" : "📝 Kundalik Daftarcha"}
               </span>
               <span className="relative z-10 text-[10px] text-slate-400 dark:text-neutral-500 font-medium hidden sm:inline">
@@ -284,9 +284,9 @@ export default function GoalProgressCard() {
                         setSaveError("");
                       }}
                       placeholder="0"
-                      className="w-full pl-6 pr-16 py-6 rounded-2xl bg-slate-50 dark:bg-neutral-900 border-2 border-slate-200 dark:border-neutral-800 text-slate-800 dark:text-white placeholder-slate-350 dark:placeholder-neutral-700 focus:outline-none focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 focus:scale-[1.01] transition-all text-3xl sm:text-4xl font-black text-center shadow-inner"
+                      className="w-full pl-4 pr-12 xs:pl-6 xs:pr-16 py-4 xs:py-6 rounded-2xl bg-slate-50 dark:bg-neutral-900 border-2 border-slate-200 dark:border-neutral-800 text-slate-800 dark:text-white placeholder-slate-350 dark:placeholder-neutral-700 focus:outline-none focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 focus:scale-[1.01] transition-all text-2xl xs:text-3xl sm:text-4xl font-black text-center shadow-inner"
                     />
-                    <div className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 dark:text-neutral-500 font-black text-base sm:text-lg pointer-events-none select-none">
+                    <div className="absolute right-4 xs:right-6 top-1/2 -translate-y-1/2 text-slate-400 dark:text-neutral-500 font-black text-sm xs:text-base sm:text-lg pointer-events-none select-none">
                       so'm
                     </div>
                   </div>
@@ -378,7 +378,7 @@ export default function GoalProgressCard() {
               {/* Transaction Form */}
               <form onSubmit={handleAddTransaction} className="space-y-5 border-b border-slate-100 dark:border-neutral-900 pb-5">
                 {/* Income / Expense Toggle */}
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-row gap-2">
                   <motion.button
                     type="button"
                     whileHover={{ scale: 1.02 }}
@@ -387,13 +387,14 @@ export default function GoalProgressCard() {
                       setTxType("expense");
                       setTxCategory("Oziq-ovqat");
                     }}
-                    className={`flex-1 py-3.5 rounded-2xl text-sm font-black transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm ${
+                    className={`flex-1 py-3.5 rounded-2xl text-xs xs:text-sm font-black transition-all cursor-pointer flex items-center justify-center gap-1.5 xs:gap-2 shadow-sm ${
                       txType === "expense"
                         ? "bg-rose-500 text-white border-2 border-rose-500 shadow-rose-500/20 shadow-md"
                         : "bg-slate-50 dark:bg-neutral-900 border-2 border-slate-200 dark:border-neutral-800 text-slate-500 dark:text-neutral-400 hover:bg-slate-100 dark:hover:bg-neutral-800"
                     }`}
                   >
-                    <TrendingDown className="w-5 h-5" /> Xarajat kiritish
+                    <TrendingDown className="w-4 h-4 xs:w-5 xs:h-5 flex-shrink-0" />
+                    <span>Xarajat<span className="hidden xs:inline"> kiritish</span></span>
                   </motion.button>
                   <motion.button
                     type="button"
@@ -403,13 +404,14 @@ export default function GoalProgressCard() {
                       setTxType("income");
                       setTxCategory("Cho'ntak puli");
                     }}
-                    className={`flex-1 py-3.5 rounded-2xl text-sm font-black transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm ${
+                    className={`flex-1 py-3.5 rounded-2xl text-xs xs:text-sm font-black transition-all cursor-pointer flex items-center justify-center gap-1.5 xs:gap-2 shadow-sm ${
                       txType === "income"
                         ? "bg-emerald-500 text-white border-2 border-emerald-500 shadow-emerald-500/20 shadow-md"
                         : "bg-slate-50 dark:bg-neutral-900 border-2 border-slate-200 dark:border-neutral-800 text-slate-500 dark:text-neutral-400 hover:bg-slate-100 dark:hover:bg-neutral-800"
                     }`}
                   >
-                    <TrendingUp className="w-5 h-5" /> Daromad kiritish
+                    <TrendingUp className="w-4 h-4 xs:w-5 xs:h-5 flex-shrink-0" />
+                    <span>Daromad<span className="hidden xs:inline"> kiritish</span></span>
                   </motion.button>
                 </div>
 
@@ -444,9 +446,9 @@ export default function GoalProgressCard() {
                       onChange={(e) => setTxAmount(e.target.value)}
                       placeholder="0"
                       required
-                      className="w-full pl-6 pr-16 py-6 rounded-2xl bg-slate-50 dark:bg-neutral-900 border-2 border-slate-200 dark:border-neutral-800 text-slate-800 dark:text-white placeholder-slate-350 dark:placeholder-neutral-700 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:scale-[1.01] transition-all text-3xl sm:text-4xl font-black text-center shadow-inner"
+                      className="w-full pl-4 pr-12 xs:pl-6 xs:pr-16 py-4 xs:py-6 rounded-2xl bg-slate-50 dark:bg-neutral-900 border-2 border-slate-200 dark:border-neutral-800 text-slate-800 dark:text-white placeholder-slate-350 dark:placeholder-neutral-700 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:scale-[1.01] transition-all text-2xl xs:text-3xl sm:text-4xl font-black text-center shadow-inner"
                     />
-                    <div className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 dark:text-neutral-500 font-black text-base sm:text-lg pointer-events-none select-none">
+                    <div className="absolute right-4 xs:right-6 top-1/2 -translate-y-1/2 text-slate-400 dark:text-neutral-500 font-black text-sm xs:text-base sm:text-lg pointer-events-none select-none">
                       so'm
                     </div>
                   </div>
@@ -532,16 +534,16 @@ export default function GoalProgressCard() {
                           whileHover={{ scale: 1.01, y: -1 }}
                           className="flex items-center justify-between p-3.5 rounded-2xl bg-white dark:bg-neutral-900 border border-slate-100 dark:border-neutral-800 shadow-sm hover:shadow-md transition-all"
                         >
-                          <div className="flex items-center gap-3">
-                            <div className={`p-2.5 rounded-xl ${
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className={`p-2.5 rounded-xl flex-shrink-0 ${
                               tx.type === "income"
                                 ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
                                 : "bg-rose-500/10 text-rose-600 dark:text-rose-400"
                             }`}>
-                              {tx.type === "income" ? <TrendingUp className="w-5 h-5" /> : <TrendingDown className="w-5 h-5" />}
+                              {tx.type === "income" ? <TrendingUp className="w-5 h-5 flex-shrink-0" /> : <TrendingDown className="w-5 h-5 flex-shrink-0" />}
                             </div>
-                            <div>
-                              <p className="font-bold text-sm text-slate-700 dark:text-neutral-200 leading-snug">{tx.title}</p>
+                            <div className="min-w-0">
+                              <p className="font-bold text-sm text-slate-700 dark:text-neutral-200 leading-snug truncate max-w-[120px] xs:max-w-[160px] sm:max-w-none">{tx.title}</p>
                               <p className="text-xs text-slate-400 dark:text-neutral-500 font-semibold mt-0.5">
                                 {categoryEmojis[tx.category] || "📦"} {tx.category} • {tx.date}
                               </p>

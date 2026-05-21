@@ -179,7 +179,7 @@ export default function OnboardingWizard() {
         {/* Outer glowing border ring */}
         <div className="absolute -inset-[2px] rounded-3xl bg-gradient-to-r from-emerald-300 via-cyan-300 to-pink-300 opacity-30 dark:opacity-20 blur-[2px]" />
 
-        <div className="relative glass-card p-6 sm:p-8 rounded-3xl overflow-hidden bg-white/80 dark:bg-neutral-900/90 border border-white dark:border-neutral-800">
+        <div className="relative glass-card p-4 xs:p-6 sm:p-8 rounded-3xl overflow-hidden bg-white/80 dark:bg-neutral-900/90 border border-white dark:border-neutral-800">
           {/* Inner decorative glows */}
           <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-pink-100/30 dark:from-pink-950/10 to-transparent rounded-full blur-2xl pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-emerald-100/30 dark:from-emerald-950/10 to-transparent rounded-full blur-2xl pointer-events-none" />
@@ -400,21 +400,21 @@ export default function OnboardingWizard() {
                   </div>
 
                   {/* Goal presets */}
-                  <div className="grid grid-cols-3 gap-2 mb-4">
+                  <div className="grid grid-cols-2 xs:grid-cols-3 gap-2 mb-4">
                     {GOAL_PRESETS.map((preset) => (
                       <motion.button
                         key={preset.name}
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={() => selectGoalPreset(preset)}
-                        className={`p-3 rounded-2xl border text-center transition-all cursor-pointer shadow-sm ${
+                        className={`p-2.5 xs:p-3 rounded-2xl border text-center transition-all cursor-pointer shadow-sm ${
                           goalName === preset.name && !customGoal
                             ? "bg-amber-50 dark:bg-amber-950/30 border-amber-300 dark:border-amber-800 text-amber-900 dark:text-amber-250 ring-2 ring-amber-500/10"
                             : "bg-white dark:bg-neutral-900 border-slate-100 dark:border-neutral-800 hover:border-slate-200 dark:hover:border-neutral-700"
                         }`}
                       >
-                        <span className="text-2xl block mb-1">{preset.emoji}</span>
-                        <span className="text-[11px] text-slate-700 dark:text-neutral-300 font-bold block leading-tight">
+                        <span className="text-xl xs:text-2xl block mb-0.5 xs:mb-1">{preset.emoji}</span>
+                        <span className="text-[10px] xs:text-[11px] text-slate-700 dark:text-neutral-300 font-bold block leading-tight">
                           {preset.name}
                         </span>
                       </motion.button>
