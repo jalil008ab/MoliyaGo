@@ -3,6 +3,8 @@
 import { motion, useMotionValue, useTransform, animate, useSpring } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import { useUser } from "@/context/UserContext";
+import LeaderboardWidget from "./LeaderboardWidget";
+import { Trophy } from "lucide-react";
 
 function formatNumber(n: number): string {
   return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -160,6 +162,7 @@ function MetricCard({ delay, accentColor, glowColor, label, sublabel, value, uni
 export default function HeroDashboardCard() {
   const { user } = useUser();
   const [isVisible, setIsVisible] = useState(false);
+  const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
 
   useEffect(() => { setIsVisible(true); }, []);
 
@@ -302,6 +305,25 @@ export default function HeroDashboardCard() {
                 <p className="text-lg font-black text-purple-600 dark:text-purple-400 leading-none">{user.level}</p>
                 <p className="text-[9px] text-purple-500 font-black uppercase tracking-wider">Daraja</p>
               </motion.div>
+
+              {/* Leaderboard Button */}
+              <motion.button
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.35, type: "spring", stiffness: 400, damping: 20 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setIsLeaderboardOpen(true)}
+                className="flex flex-col items-center px-4 py-2.5 rounded-2xl border cursor-pointer transition-all shadow-sm"
+                style={{
+                  background: "linear-gradient(135deg, rgba(245,166,35,0.08), rgba(167,139,250,0.05))",
+                  borderColor: "rgba(245,166,35,0.25)",
+                }}
+              >
+                <Trophy className="w-4 h-4 text-amber-500 mb-0.5 animate-pulse" />
+                <p className="text-lg font-black text-amber-600 dark:text-amber-450 leading-none">Reyting</p>
+                <p className="text-[9px] text-amber-500 font-black uppercase tracking-wider">Jadval</p>
+              </motion.button>
             </div>
           </div>
 
@@ -429,6 +451,9 @@ export default function HeroDashboardCard() {
           </div>
         </div>
       </div>
+      
+      {/* Global Leaderboard Modal/Drawer */}
+      <LeaderboardWidget isOpen={isLeaderboardOpen} onClose={() => setIsLeaderboardOpen(false)} />
     </motion.div>
   );
 }
