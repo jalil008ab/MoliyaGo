@@ -53,7 +53,7 @@ export default function RootLayout({
           <div className="cyber-bg fixed inset-0 z-0 pointer-events-none" />
 
           {/* Main content */}
-          <div className="relative z-10">{children}</div>
+          <div className="relative z-10 overflow-x-hidden w-full">{children}</div>
         </Providers>
       </body>
     </html>

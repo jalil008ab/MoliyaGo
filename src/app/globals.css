@@ -86,6 +86,7 @@ html.dark {
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden !important;
 }
 
 body {
@@ -94,7 +95,7 @@ body {
   background-attachment: fixed;
   color: var(--text-primary);
   font-family: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
   min-height: 100vh;
   letter-spacing: -0.015em;
   -webkit-font-smoothing: antialiased;
