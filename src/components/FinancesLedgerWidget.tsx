@@ -273,7 +273,7 @@ export default function FinancesLedgerWidget() {
                 {Object.entries(categoryBudgets).map(([cat, amount]) => (
                   <div key={cat} className="space-y-1.5">
                     <div className="flex justify-between text-xs font-bold">
-                      <span className="text-slate-700 dark:text-neutral-350">{categoryEmojis[cat] || "📦"} {cat}</span>
+                      <span className="text-slate-700 dark:text-neutral-200">{categoryEmojis[cat] || "📦"} {cat}</span>
                       <span className="text-rose-600 dark:text-rose-400 font-black">{formatNumber(amount)} so&apos;m</span>
                     </div>
                     <div className="h-1.5 bg-black/5 dark:bg-white/5 rounded-full overflow-hidden">

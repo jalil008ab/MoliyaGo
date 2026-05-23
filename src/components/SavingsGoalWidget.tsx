@@ -121,7 +121,7 @@ export default function SavingsGoalWidget() {
               <span className="text-slate-700 dark:text-neutral-200 text-xl sm:text-2xl font-black">
                 {formatNumber(user.targetAmount)}
               </span>
-              <span className="text-slate-650 dark:text-neutral-350 text-xs font-black ml-1">so&apos;m</span>
+              <span className="text-slate-650 dark:text-neutral-200 text-xs font-black ml-1">so&apos;m</span>
             </div>
           </div>
         </div>

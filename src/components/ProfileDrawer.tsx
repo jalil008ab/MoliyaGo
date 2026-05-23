@@ -327,7 +327,7 @@ export default function ProfileDrawer({ isOpen, onClose }: ProfileDrawerProps) {
                   className={`w-full py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 cursor-pointer transition-all shadow-sm ${
                     isEditing
                       ? "bg-gradient-to-r from-emerald-500 to-cyan-500 hover:opacity-90 text-white shadow-md"
-                      : "bg-slate-100 dark:bg-neutral-800 border border-slate-200 dark:border-neutral-700 text-slate-600 dark:text-neutral-350 hover:bg-slate-200 dark:hover:bg-neutral-750 hover:text-slate-800 dark:hover:text-neutral-100"
+                      : "bg-slate-100 dark:bg-neutral-800 border border-slate-200 dark:border-neutral-700 text-slate-600 dark:text-neutral-200 hover:bg-slate-200 dark:hover:bg-neutral-750 hover:text-slate-800 dark:hover:text-neutral-100"
                   }`}
                 >
                   {isEditing ? (

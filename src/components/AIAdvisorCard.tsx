@@ -205,7 +205,7 @@ export default function AIAdvisorCard() {
                   {scoreInfo.status}
                 </span>
               </div>
-              <p className="text-[10px] text-slate-700 dark:text-neutral-250 mt-1 leading-relaxed font-extrabold">
+              <p className="text-[10px] text-slate-700 dark:text-neutral-100 mt-1 leading-relaxed font-extrabold">
                 {scoreInfo.desc}
               </p>
             </div>

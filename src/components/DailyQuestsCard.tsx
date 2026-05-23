@@ -419,7 +419,7 @@ export default function DailyQuestsCard() {
                       <h3 className="text-sm font-bold text-slate-800 dark:text-neutral-100">
                         1 Daqiqalik Moliyaviy Dars
                       </h3>
-                      <p className="text-[10px] text-slate-700 dark:text-neutral-350 font-bold">
+                      <p className="text-[10px] text-slate-700 dark:text-neutral-200 font-bold">
                         {lessonStep < 2
                           ? `Slayd ${lessonStep + 1}/2`
                           : "Tezkor test"}

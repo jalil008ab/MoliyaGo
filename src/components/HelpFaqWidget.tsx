@@ -137,7 +137,7 @@ export default function HelpFaqWidget() {
           <div className="flex items-center gap-1.5 px-3 py-1 bg-amber-500/10 border border-amber-500/20 rounded-full text-[10px] font-black text-amber-600 dark:text-amber-400 uppercase tracking-wider">
             💡 Kunlik Aqlli Odat
           </div>
-          <p className="text-xs sm:text-sm text-slate-700 dark:text-neutral-250 font-bold max-w-lg leading-relaxed mt-1">
+          <p className="text-xs sm:text-sm text-slate-700 dark:text-neutral-100 font-extrabold max-w-lg leading-relaxed mt-1">
             &quot;Daromad olganingizda birinchi navbatda o&apos;zingizga to&apos;lang! Har safar pul kelganda, kamida 10-20% qismini darhol Jamg&apos;armaga o&apos;tkazing. Qolgan pulga esa oylik xarajatlarni rejalashtiring.&quot;
           </p>
         </div>

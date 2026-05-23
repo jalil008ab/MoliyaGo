@@ -128,7 +128,7 @@ export default function SettingsWidget() {
             <div className="space-y-4">
               {/* Name */}
               <div className="space-y-1.5">
-                <label className="block text-xs font-black text-slate-400 dark:text-neutral-500 uppercase tracking-wider">Ismingiz</label>
+                <label className="block text-xs font-black text-slate-700 dark:text-neutral-200 uppercase tracking-wider">Ismingiz</label>
                 {isEditing ? (
                   <input
                     type="text"
@@ -137,13 +137,13 @@ export default function SettingsWidget() {
                     className="w-full px-4 py-2.5 rounded-2xl bg-white dark:bg-neutral-950 border border-cyan-300 dark:border-cyan-800 text-slate-800 dark:text-neutral-100 text-sm font-bold shadow-sm"
                   />
                 ) : (
-                  <p className="text-sm font-bold text-slate-850 dark:text-neutral-250 px-4 py-2.5 rounded-2xl bg-slate-50/50 dark:bg-neutral-950/20 border border-slate-200/50 dark:border-neutral-800">{user.name}</p>
+                  <p className="text-sm font-black text-slate-900 dark:text-white px-4 py-2.5 rounded-2xl bg-slate-50/50 dark:bg-neutral-950/20 border border-slate-200/50 dark:border-neutral-800">{user.name}</p>
                 )}
               </div>
 
               {/* Age */}
               <div className="space-y-1.5">
-                <label className="block text-xs font-black text-slate-400 dark:text-neutral-500 uppercase tracking-wider">Yoshingiz</label>
+                <label className="block text-xs font-black text-slate-700 dark:text-neutral-200 uppercase tracking-wider">Yoshingiz</label>
                 {isEditing ? (
                   <input
                     type="number"
@@ -152,13 +152,13 @@ export default function SettingsWidget() {
                     className="w-full px-4 py-2.5 rounded-2xl bg-white dark:bg-neutral-950 border border-cyan-300 dark:border-cyan-800 text-slate-800 dark:text-neutral-100 text-sm font-bold shadow-sm"
                   />
                 ) : (
-                  <p className="text-sm font-bold text-slate-850 dark:text-neutral-250 px-4 py-2.5 rounded-2xl bg-slate-50/50 dark:bg-neutral-950/20 border border-slate-200/50 dark:border-neutral-800">{user.age} yosh</p>
+                  <p className="text-sm font-black text-slate-900 dark:text-white px-4 py-2.5 rounded-2xl bg-slate-50/50 dark:bg-neutral-950/20 border border-slate-200/50 dark:border-neutral-800">{user.age} yosh</p>
                 )}
               </div>
 
               {/* Goal name */}
               <div className="space-y-1.5">
-                <label className="block text-xs font-black text-slate-400 dark:text-neutral-500 uppercase tracking-wider">Katta Maqsad Nomi</label>
+                <label className="block text-xs font-black text-slate-700 dark:text-neutral-200 uppercase tracking-wider">Katta Maqsad Nomi</label>
                 {isEditing ? (
                   <input
                     type="text"
@@ -167,13 +167,13 @@ export default function SettingsWidget() {
                     className="w-full px-4 py-2.5 rounded-2xl bg-white dark:bg-neutral-950 border border-cyan-300 dark:border-cyan-800 text-slate-800 dark:text-neutral-100 text-sm font-bold shadow-sm"
                   />
                 ) : (
-                  <p className="text-sm font-bold text-slate-850 dark:text-neutral-250 px-4 py-2.5 rounded-2xl bg-slate-50/50 dark:bg-neutral-950/20 border border-slate-200/50 dark:border-neutral-800">{user.goalEmoji} {user.goalName}</p>
+                  <p className="text-sm font-black text-slate-900 dark:text-white px-4 py-2.5 rounded-2xl bg-slate-50/50 dark:bg-neutral-950/20 border border-slate-200/50 dark:border-neutral-800">{user.goalEmoji} {user.goalName}</p>
                 )}
               </div>
 
               {/* Goal target amount */}
               <div className="space-y-1.5">
-                <label className="block text-xs font-black text-slate-400 dark:text-neutral-500 uppercase tracking-wider">Maqsad summasi (so&apos;m)</label>
+                <label className="block text-xs font-black text-slate-700 dark:text-neutral-200 uppercase tracking-wider">Maqsad summasi (so&apos;m)</label>
                 {isEditing ? (
                   <input
                     type="number"
@@ -182,7 +182,7 @@ export default function SettingsWidget() {
                     className="w-full px-4 py-2.5 rounded-2xl bg-white dark:bg-neutral-950 border border-cyan-300 dark:border-cyan-800 text-slate-800 dark:text-neutral-100 text-sm font-bold shadow-sm"
                   />
                 ) : (
-                  <p className="text-sm font-bold text-slate-850 dark:text-neutral-250 px-4 py-2.5 rounded-2xl bg-slate-50/50 dark:bg-neutral-950/20 border border-slate-200/50 dark:border-neutral-800">{formatNumber(user.targetAmount)} UZS</p>
+                  <p className="text-sm font-black text-slate-900 dark:text-white px-4 py-2.5 rounded-2xl bg-slate-50/50 dark:bg-neutral-950/20 border border-slate-200/50 dark:border-neutral-800">{formatNumber(user.targetAmount)} UZS</p>
                 )}
               </div>
             </div>
@@ -195,7 +195,7 @@ export default function SettingsWidget() {
               className={`w-full py-3.5 rounded-2xl font-black text-xs flex items-center justify-center gap-2 cursor-pointer transition-all shadow-sm ${
                 isEditing
                   ? "bg-gradient-to-r from-emerald-500 to-cyan-500 hover:opacity-90 text-white"
-                  : "bg-slate-100 dark:bg-neutral-800 border border-slate-250 dark:border-neutral-700 text-slate-600 dark:text-neutral-350 hover:bg-slate-200"
+                  : "bg-slate-100 dark:bg-neutral-800 border border-slate-250 dark:border-neutral-700 text-slate-600 dark:text-neutral-200 hover:bg-slate-200"
               }`}
             >
               {isEditing ? (
@@ -227,10 +227,10 @@ export default function SettingsWidget() {
               </div>
             </div>
 
-            <div className="space-y-4">
+             <div className="space-y-4">
               {settingsGroups.map((group) => (
                 <div key={group.title} className="space-y-2">
-                  <p className="text-[10px] font-black text-slate-400 dark:text-neutral-500 uppercase tracking-widest pl-1">{group.title}</p>
+                  <p className="text-[10px] font-black text-slate-500 dark:text-neutral-300 uppercase tracking-widest pl-1">{group.title}</p>
                   <div className="space-y-2">
                     {group.items.map((item) => (
                       <div
@@ -241,9 +241,9 @@ export default function SettingsWidget() {
                           <div className={`w-8 h-8 rounded-xl ${item.bgColor} border ${item.borderColor} flex items-center justify-center ${item.color} shadow-inner`}>
                             {item.icon}
                           </div>
-                          <span className="text-xs font-bold text-slate-700 dark:text-neutral-200">{item.label}</span>
+                          <span className="text-xs font-bold text-slate-800 dark:text-neutral-100">{item.label}</span>
                         </div>
-                        <span className="text-[11px] font-bold text-slate-500 dark:text-neutral-400 bg-white/70 dark:bg-neutral-850 px-2.5 py-1 rounded-xl border border-slate-200/50 dark:border-neutral-800">
+                        <span className="text-[11px] font-black text-slate-900 dark:text-indigo-300 bg-slate-100/90 dark:bg-neutral-900/90 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-neutral-800 shadow-sm">
                           {item.value}
                         </span>
                       </div>

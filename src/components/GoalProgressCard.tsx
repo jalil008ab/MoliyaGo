@@ -188,7 +188,7 @@ export default function GoalProgressCard() {
               <span className="text-slate-900 dark:text-neutral-100 text-2xl sm:text-3xl font-black">
                 {formatNumber(user.targetAmount)}
               </span>
-              <span className="text-slate-800 dark:text-neutral-350 text-sm font-black ml-1">so'm</span>
+              <span className="text-slate-800 dark:text-neutral-200 text-sm font-black ml-1">so'm</span>
             </div>
           </div>
         </div>
@@ -510,7 +510,7 @@ export default function GoalProgressCard() {
 
               {/* Transaction List */}
               <div className="flex-1 flex flex-col justify-between">
-                <h5 className="text-sm font-black text-slate-750 dark:text-neutral-350 uppercase tracking-wider mb-3">Tranzaksiyalar tarixi</h5>
+                <h5 className="text-sm font-black text-slate-750 dark:text-neutral-200 uppercase tracking-wider mb-3">Tranzaksiyalar tarixi</h5>
 
                 <div className="overflow-y-auto max-h-[180px] space-y-2.5 pr-1">
                   {user.transactions.length === 0 ? (
@@ -544,7 +544,7 @@ export default function GoalProgressCard() {
                             </div>
                             <div className="min-w-0">
                               <p className="font-black text-sm text-slate-900 dark:text-neutral-100 leading-snug truncate max-w-[120px] xs:max-w-[160px] sm:max-w-none">{tx.title}</p>
-                              <p className="text-xs text-slate-700 dark:text-neutral-350 font-bold mt-0.5">
+                              <p className="text-xs text-slate-700 dark:text-neutral-200 font-bold mt-0.5">
                                 {categoryEmojis[tx.category] || "📦"} {tx.category} • {tx.date}
                               </p>
                             </div>

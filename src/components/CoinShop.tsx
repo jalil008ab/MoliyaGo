@@ -179,11 +179,12 @@ const CATEGORY_LABELS = {
 };
 
 interface CoinShopProps {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
+  isTab?: boolean;
 }
 
-export default function CoinShop({ isOpen, onClose }: CoinShopProps) {
+export default function CoinShop({ isOpen = false, onClose = () => {}, isTab = false }: CoinShopProps) {
   const { user, purchaseItem, activateItem } = useUser();
   const [activeCategory, setActiveCategory] = useState<"all" | ShopItem["category"]>("all");
   const [purchaseConfirm, setPurchaseConfirm] = useState<string | null>(null);
@@ -220,6 +221,214 @@ export default function CoinShop({ isOpen, onClose }: CoinShopProps) {
     if (category === "scene") return user.activeScene;
     return "";
   };
+
+  if (isTab) {
+    return (
+      <div className="max-w-3xl mx-auto w-full glass-card overflow-hidden flex flex-col border border-slate-200/60 dark:border-neutral-800 shadow-md">
+        {/* Header */}
+        <div className="relative flex items-center justify-between p-6 border-b border-black/5 dark:border-white/5 z-10 flex-shrink-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 to-transparent pointer-events-none" />
+          
+          <div className="flex items-center gap-3">
+            <motion.div
+              animate={{ rotate: [0, 10, -10, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="w-10 h-10 rounded-2xl flex items-center justify-center text-2xl"
+              style={{ background: "linear-gradient(135deg, #F5A623, #FFD166)" }}
+            >
+              🛍️
+            </motion.div>
+            <div>
+              <h2 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">Tanga Do'koni</h2>
+              <p className="text-xs text-slate-500 dark:text-neutral-400 font-medium">Tangalaringizni profilingizni bezash uchun sarflang!</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <motion.div
+              key={user.coins}
+              initial={{ scale: 1.2 }}
+              animate={{ scale: 1 }}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800"
+            >
+              <span className="text-lg">🪙</span>
+              <span className="text-sm font-black text-amber-700 dark:text-amber-400">
+                {user.coins.toLocaleString()}
+              </span>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Category Filter */}
+        <div className="flex gap-2 px-6 py-4 border-b border-black/5 dark:border-white/5 flex-shrink-0 overflow-x-auto">
+          {categories.map((cat) => (
+            <motion.button
+              key={cat}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ duration: 0.1 }}
+              onClick={() => setActiveCategory(cat)}
+              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap cursor-pointer transition-all border ${
+                activeCategory === cat
+                  ? "bg-amber-500 text-white border-amber-500 shadow-lg shadow-amber-500/25"
+                  : "bg-slate-50 dark:bg-neutral-900 text-slate-500 dark:text-neutral-400 border-slate-200 dark:border-neutral-800 hover:border-amber-300"
+              }`}
+            >
+              {cat === "all" ? <ShoppingBag className="w-3.5 h-3.5" /> : CATEGORY_ICONS[cat]}
+              {cat === "all" ? "Barchasi" : CATEGORY_LABELS[cat]}
+            </motion.button>
+          ))}
+        </div>
+
+        {/* Items Grid */}
+        <div className="flex-1 overflow-y-auto p-6 max-h-[580px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <AnimatePresence mode="popLayout">
+              {filteredItems.map((item, i) => {
+                const owned = user.purchasedItems.includes(item.id);
+                const isActive = getActiveItem(item.category) === item.id;
+                const confirming = purchaseConfirm === item.id;
+                const boughtNow = justBought === item.id;
+                const canAfford = user.coins >= item.cost;
+                const rarity = RARITY_CONFIG[item.rarity];
+
+                return (
+                  <motion.div
+                    key={item.id}
+                    layout
+                    initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ delay: i * 0.04, type: "spring", stiffness: 400, damping: 25 }}
+                    className={`relative rounded-2xl border overflow-hidden cursor-pointer group ${
+                      isActive
+                        ? "border-amber-400 dark:border-amber-500 shadow-lg shadow-amber-500/20"
+                        : owned
+                        ? "border-emerald-400 dark:border-emerald-600 shadow-md shadow-emerald-500/10"
+                        : "border-slate-200 dark:border-neutral-800 hover:border-amber-300 dark:hover:border-amber-700"
+                    }`}
+                    onClick={() => handlePurchase(item)}
+                  >
+                    {isActive && (
+                      <div className="absolute top-3 right-3 z-10 px-2 py-0.5 rounded-lg bg-amber-500 text-white text-[10px] font-black tracking-wide">
+                        FAOL
+                      </div>
+                    )}
+
+                    {owned && !isActive && (
+                      <div className="absolute top-3 right-3 z-10 px-2 py-0.5 rounded-lg bg-emerald-500 text-white text-[10px] font-black">
+                        SIZDA BOR
+                      </div>
+                    )}
+
+                    <div className="flex items-center gap-3 xs:gap-4 p-3 xs:p-4">
+                      <div
+                        className="w-12 h-12 xs:w-16 xs:h-16 rounded-xl flex-shrink-0 flex items-center justify-center text-2xl xs:text-3xl shadow-inner relative overflow-hidden"
+                        style={{ background: item.preview }}
+                      >
+                        <span className="relative z-10 drop-shadow-lg">{item.emoji}</span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500" />
+                      </div>
+
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1 flex-wrap">
+                          <h3 className="font-black text-sm text-slate-900 dark:text-white truncate">{item.name}</h3>
+                          <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold ${rarity.bg} ${rarity.color} border ${rarity.border}`}>
+                            {rarity.label}
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-500 dark:text-neutral-400 leading-relaxed mb-2">{item.description}</p>
+                        
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-base">🪙</span>
+                            <span className={`text-sm font-black ${
+                              canAfford ? "text-amber-600 dark:text-amber-400" : "text-slate-400"
+                            }`}>
+                              {item.cost.toLocaleString()}
+                            </span>
+                          </div>
+
+                          <AnimatePresence mode="wait">
+                            {boughtNow ? (
+                              <motion.div
+                                key="bought"
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                exit={{ scale: 0 }}
+                                className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-emerald-500 text-white text-xs font-black"
+                              >
+                                <Check className="w-3.5 h-3.5" /> Sotib olindi!
+                              </motion.div>
+                            ) : owned ? (
+                              <motion.div
+                                key="owned"
+                                className={`px-3 py-1.5 rounded-xl text-xs font-black ${
+                                  isActive
+                                    ? "bg-amber-500 text-white"
+                                    : "bg-slate-100 dark:bg-neutral-800 text-slate-600 dark:text-neutral-400 hover:bg-emerald-100 dark:hover:bg-emerald-950/30 hover:text-emerald-700 dark:hover:text-emerald-400"
+                                }`}
+                              >
+                                {isActive ? "✓ Faol" : "Faollashtirish"}
+                              </motion.div>
+                            ) : confirming ? (
+                              <motion.div
+                                key="confirm"
+                                initial={{ scale: 0.9, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                className={`px-3 py-1.5 rounded-xl text-xs font-black ${
+                                  canAfford
+                                    ? "bg-amber-500 text-white animate-pulse"
+                                    : "bg-rose-100 text-rose-600 dark:bg-rose-950/30 dark:text-rose-400"
+                                }`}
+                              >
+                                {canAfford ? "Tasdiqlash →" : "Yetarli tanga yo'q"}
+                              </motion.div>
+                            ) : (
+                              <motion.div
+                                key="buy"
+                                className={`px-3 py-1.5 rounded-xl text-xs font-black border ${
+                                  canAfford
+                                    ? "border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-400 hover:bg-amber-505 hover:bg-amber-500 hover:text-white hover:border-amber-500"
+                                    : "border-slate-200 dark:border-neutral-800 text-slate-400 cursor-not-allowed"
+                                } transition-all`}
+                              >
+                                {canAfford ? "Sotib olish" : <Lock className="w-3.5 h-3.5" />}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </div>
+
+          <div className="mt-6 p-4 rounded-2xl bg-slate-50 dark:bg-neutral-900/50 border border-slate-100 dark:border-neutral-800">
+            <div className="flex items-center gap-2 mb-2">
+              <Zap className="w-4 h-4 text-amber-500" />
+              <span className="text-xs font-bold text-slate-600 dark:text-neutral-300">Tanga qanday topiladi?</span>
+            </div>
+            <div className="space-y-1">
+              {[
+                ["🎯 Missiya bajarildi", "+10-50 🪙"],
+                ["💰 Jamg'armaga pul qo'yildi", "+15 🪙"],
+                ["📝 Xarajat qayd etildi", "+5 🪙"],
+                ["🤖 AI vaziyat hal qilindi", "+20 🪙"],
+              ].map(([action, reward]) => (
+                <div key={action} className="flex justify-between text-[11px]">
+                  <span className="text-slate-500 dark:text-neutral-400">{action}</span>
+                  <span className="font-bold text-amber-600 dark:text-amber-400">{reward}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <AnimatePresence>

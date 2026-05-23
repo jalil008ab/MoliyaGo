@@ -820,7 +820,7 @@ export default function AISituationCard() {
                           <p className="text-slate-800 dark:text-neutral-100 font-extrabold text-base sm:text-lg leading-snug">
                             {scenario!.title}
                           </p>
-                          <p className="text-slate-600 dark:text-neutral-350 text-sm mt-2.5 leading-relaxed font-semibold">
+                          <p className="text-slate-600 dark:text-neutral-200 text-sm mt-2.5 leading-relaxed font-semibold">
                             {scenario!.description}
                           </p>
                           <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 dark:bg-amber-500/10 border border-amber-200/50 dark:border-amber-500/20 rounded-full text-xs text-amber-700 dark:text-amber-400 font-bold mt-4">
@@ -1057,7 +1057,7 @@ export default function AISituationCard() {
                   <div className="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-950/30 flex items-center justify-center mx-auto mb-2 shadow-inner">
                     <span className="text-base">🪙</span>
                   </div>
-                  <p className="text-[10px] font-black text-slate-700 dark:text-neutral-350 uppercase tracking-wider">
+                  <p className="text-[10px] font-black text-slate-700 dark:text-neutral-200 uppercase tracking-wider">
                     Yig&apos;ilgan tangalar
                   </p>
                   <p className="text-base font-extrabold text-amber-600 dark:text-amber-400 mt-0.5">
@@ -1070,7 +1070,7 @@ export default function AISituationCard() {
                   <div className="w-8 h-8 rounded-lg bg-pink-100 dark:bg-pink-950/30 flex items-center justify-center mx-auto mb-2 text-pink-600 dark:text-pink-400 shadow-inner">
                     <Sparkles className="w-4 h-4" />
                   </div>
-                  <p className="text-[10px] font-black text-slate-700 dark:text-neutral-350 uppercase tracking-wider">
+                  <p className="text-[10px] font-black text-slate-700 dark:text-neutral-200 uppercase tracking-wider">
                     Yig&apos;ilgan XP
                   </p>
                   <p className="text-base font-extrabold text-pink-600 dark:text-pink-400 mt-0.5">
@@ -1083,7 +1083,7 @@ export default function AISituationCard() {
                   <div className="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-950/30 flex items-center justify-center mx-auto mb-2 text-emerald-600 dark:text-emerald-400 shadow-inner">
                     <TrendingUp className="w-4 h-4" />
                   </div>
-                  <p className="text-[10px] font-black text-slate-700 dark:text-neutral-350 uppercase tracking-wider">
+                  <p className="text-[10px] font-black text-slate-700 dark:text-neutral-200 uppercase tracking-wider">
                     Tejash qarori
                   </p>
                   <p className="text-base font-extrabold text-emerald-600 dark:text-emerald-400 mt-0.5">

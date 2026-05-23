@@ -17,9 +17,9 @@ import SettingsDrawer from "@/components/SettingsDrawer";
 import CoinShop from "@/components/CoinShop";
 import { useUser } from "@/context/UserContext";
 import { motion, AnimatePresence } from "framer-motion";
-import { LayoutDashboard, Wallet, Sparkles, BookOpen, Settings } from "lucide-react";
+import { LayoutDashboard, Wallet, Sparkles, BookOpen, ShoppingBag } from "lucide-react";
 
-type TabType = "home" | "finances" | "services" | "help" | "settings";
+type TabType = "home" | "finances" | "simulator" | "help" | "shop";
 
 export default function Home() {
   const { user } = useUser();
@@ -47,9 +47,9 @@ export default function Home() {
   const navItems = [
     { id: "home", label: "Bosh menyu", icon: <LayoutDashboard className="w-5 h-5" /> },
     { id: "finances", label: "Mablag'lar", icon: <Wallet className="w-5 h-5" /> },
-    { id: "services", label: "Xizmatlar", icon: <Sparkles className="w-5 h-5" /> },
+    { id: "simulator", label: "AI Simulyator", icon: <Sparkles className="w-5 h-5" /> },
     { id: "help", label: "Yordam", icon: <BookOpen className="w-5 h-5" /> },
-    { id: "settings", label: "Sozlamalar", icon: <Settings className="w-5 h-5" /> },
+    { id: "shop", label: "Do'kon", icon: <ShoppingBag className="w-5 h-5" /> },
   ] as const;
 
   return (
@@ -125,7 +125,7 @@ export default function Home() {
                 <FinancesLedgerWidget />
               )}
 
-              {currentTab === "services" && (
+              {currentTab === "simulator" && (
                 <div className="space-y-6">
                   {/* simulator */}
                   <AISituationCard />
@@ -146,9 +146,9 @@ export default function Home() {
                 <HelpFaqWidget />
               )}
 
-              {currentTab === "settings" && (
-                /* profile edit & resets */
-                <SettingsWidget />
+              {currentTab === "shop" && (
+                /* coin shop in-page tab widget */
+                <CoinShop isTab={true} />
               )}
             </motion.div>
           </AnimatePresence>
