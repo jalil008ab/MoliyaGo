@@ -103,16 +103,60 @@ export default function ProfileDrawer({ isOpen, onClose }: ProfileDrawerProps) {
                   </motion.button>
                 </div>
 
-                {/* Avatar & Name */}
+                {/* Avatar & Name with active frame and badge */}
                 <div className="text-center mb-6">
                   <div className="relative inline-block mb-3">
-                    <div className="absolute -inset-1.5 bg-gradient-to-r from-emerald-400 via-cyan-400 to-pink-400 rounded-full opacity-30 dark:opacity-20 blur-sm animate-pulse" />
-                    <div className="relative w-20 h-20 rounded-full bg-gradient-to-br from-emerald-50 to-cyan-50 dark:from-emerald-950/50 dark:to-cyan-950/50 border-2 border-cyan-300 dark:border-cyan-800 flex items-center justify-center shadow-md">
+                    {/* Active Frame Glow Ring */}
+                    <div
+                      className={`absolute -inset-2 rounded-full opacity-70 blur-[3px] transition-all duration-300 ${
+                        user.activeFrame === "frame-gold"
+                          ? "shadow-[0_0_15px_rgba(245,166,35,0.8)] animate-pulse"
+                          : user.activeFrame === "frame-diamond"
+                          ? "shadow-[0_0_15px_rgba(168,237,234,0.8)]"
+                          : user.activeFrame === "frame-fire"
+                          ? "shadow-[0_0_15px_rgba(248,54,0,0.8)] animate-pulse"
+                          : "bg-gradient-to-r from-emerald-400 via-cyan-400 to-pink-400 opacity-30 animate-pulse"
+                      }`}
+                      style={{
+                        background:
+                          user.activeFrame === "frame-gold"
+                            ? "linear-gradient(135deg, #F5A623, #FFD166, #C47D0E)"
+                            : user.activeFrame === "frame-diamond"
+                            ? "linear-gradient(135deg, #a8edea, #fed6e3, #a8edea)"
+                            : user.activeFrame === "frame-fire"
+                            ? "linear-gradient(135deg, #f83600, #f9d423)"
+                            : undefined,
+                      }}
+                    />
+                    <div
+                      className="relative w-20 h-20 rounded-full flex items-center justify-center border-2 border-white dark:border-neutral-900 shadow-md transition-all duration-300"
+                      style={{
+                        background:
+                          user.activeFrame === "frame-gold"
+                            ? "linear-gradient(135deg, rgba(245,166,35,0.35), rgba(255,209,102,0.2))"
+                            : user.activeFrame === "frame-diamond"
+                            ? "linear-gradient(135deg, rgba(168,237,234,0.35), rgba(254,214,227,0.2))"
+                            : user.activeFrame === "frame-fire"
+                            ? "linear-gradient(135deg, rgba(248,54,0,0.35), rgba(249,212,35,0.2))"
+                            : "linear-gradient(135deg, rgba(245,166,35,0.2), rgba(6,194,112,0.2))",
+                      }}
+                    >
                       <span className="text-3xl font-black gradient-text">
-                        {user.name.charAt(0).toUpperCase()}
+                        {user.name ? user.name.charAt(0).toUpperCase() : "M"}
                       </span>
                     </div>
-                    <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 flex items-center justify-center border-2 border-white dark:border-neutral-900 shadow">
+
+                    {/* Float frame overlay emoji (👑, 💎, 🔥) */}
+                    {user.activeFrame && user.activeFrame !== "default" && (
+                      <div className="absolute -top-3 -right-1.5 text-xl select-none pointer-events-none drop-shadow filter">
+                        {user.activeFrame === "frame-gold" && "👑"}
+                        {user.activeFrame === "frame-diamond" && "💎"}
+                        {user.activeFrame === "frame-fire" && "🔥"}
+                      </div>
+                    )}
+
+                    {/* Level indicator */}
+                    <div className="absolute -bottom-1 -right-1.5 w-7 h-7 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 flex items-center justify-center border-2 border-white dark:border-neutral-900 shadow">
                       <span className="text-[10px] font-black text-white">
                         {user.level}
                       </span>
@@ -120,7 +164,26 @@ export default function ProfileDrawer({ isOpen, onClose }: ProfileDrawerProps) {
                   </div>
                   {!isEditing ? (
                     <>
-                      <h3 className="text-2xl font-bold tracking-tight text-slate-800 dark:text-neutral-100 mb-1">{user.name}</h3>
+                      <h3 className="text-2xl font-black tracking-tight text-slate-800 dark:text-neutral-100 mb-1 flex items-center justify-center gap-1.5">
+                        <span>{user.name}</span>
+                        {/* Display Active Badge Emoji next to name */}
+                        {user.activeBadge && (
+                          <span
+                            title={
+                              user.activeBadge === "badge-millioner"
+                                ? "Millioner 💰"
+                                : user.activeBadge === "badge-tejamkor"
+                                ? "Tejamkor 🏦"
+                                : "Investor 📈"
+                            }
+                            className="text-lg filter drop-shadow animate-bounce"
+                          >
+                            {user.activeBadge === "badge-millioner" && "💰"}
+                            {user.activeBadge === "badge-tejamkor" && "🏦"}
+                            {user.activeBadge === "badge-investor" && "📈"}
+                          </span>
+                        )}
+                      </h3>
                       <p className="text-xs text-slate-500 dark:text-neutral-400 font-semibold">{occupationLabels[user.occupation]}</p>
                     </>
                   ) : (

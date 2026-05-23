@@ -240,7 +240,7 @@ export default function Navbar({ onOpenProfile, onOpenSettings, onOpenShop }: Na
             {/* Divider */}
             <div className="hidden sm:block w-px h-6 bg-slate-200 dark:bg-neutral-800 mx-0.5" />
 
-            {/* Avatar */}
+            {/* Avatar with active frame and badge from shop */}
             <motion.button
               whileHover={{ scale: 1.06 }}
               whileTap={{ scale: 0.94 }}
@@ -248,18 +248,68 @@ export default function Navbar({ onOpenProfile, onOpenSettings, onOpenShop }: Na
               onClick={onOpenProfile}
               className="relative cursor-pointer"
             >
-              {/* Glow ring */}
-              <div className="absolute -inset-1 rounded-full opacity-60 blur-[3px]"
-                style={{ background: "linear-gradient(135deg, #F5A623, #06C270, #F5A623)" }} />
-              <div className="relative w-9 h-9 rounded-full flex items-center justify-center border-2 border-white dark:border-neutral-900 shadow-md"
-                style={{ background: "linear-gradient(135deg, rgba(245,166,35,0.2), rgba(6,194,112,0.2))" }}
+              {/* Dynamic Glow ring from shop activeFrame */}
+              <div
+                className={`absolute -inset-1 rounded-full opacity-70 blur-[3px] transition-all duration-300 ${
+                  user.activeFrame === "frame-gold"
+                    ? "shadow-[0_0_12px_rgba(245,166,35,0.7)] animate-pulse"
+                    : user.activeFrame === "frame-diamond"
+                    ? "shadow-[0_0_12px_rgba(168,237,234,0.7)]"
+                    : user.activeFrame === "frame-fire"
+                    ? "shadow-[0_0_12px_rgba(248,54,0,0.7)] animate-pulse"
+                    : ""
+                }`}
+                style={{
+                  background:
+                    user.activeFrame === "frame-gold"
+                      ? "linear-gradient(135deg, #F5A623, #FFD166, #C47D0E)"
+                      : user.activeFrame === "frame-diamond"
+                      ? "linear-gradient(135deg, #a8edea, #fed6e3, #a8edea)"
+                      : user.activeFrame === "frame-fire"
+                      ? "linear-gradient(135deg, #f83600, #f9d423)"
+                      : "linear-gradient(135deg, #00D4FF, #06C270)",
+                }}
+              />
+              <div
+                className="relative w-9 h-9 rounded-full flex items-center justify-center border-2 border-white dark:border-neutral-900 shadow-md transition-all duration-300"
+                style={{
+                  background:
+                    user.activeFrame === "frame-gold"
+                      ? "linear-gradient(135deg, rgba(245,166,35,0.35), rgba(255,209,102,0.2))"
+                      : user.activeFrame === "frame-diamond"
+                      ? "linear-gradient(135deg, rgba(168,237,234,0.35), rgba(254,214,227,0.2))"
+                      : user.activeFrame === "frame-fire"
+                      ? "linear-gradient(135deg, rgba(248,54,0,0.35), rgba(249,212,35,0.2))"
+                      : "linear-gradient(135deg, rgba(245,166,35,0.2), rgba(6,194,112,0.2))",
+                }}
               >
                 <span className="text-sm font-black text-slate-800 dark:text-neutral-100">
                   {user.name ? user.name.charAt(0).toUpperCase() : "M"}
                 </span>
               </div>
+
+              {/* Float frame emoji overlay (👑, 💎, 🔥) */}
+              {user.activeFrame && user.activeFrame !== "default" && (
+                <div className="absolute -top-2 -right-1 text-xs select-none pointer-events-none drop-shadow filter">
+                  {user.activeFrame === "frame-gold" && "👑"}
+                  {user.activeFrame === "frame-diamond" && "💎"}
+                  {user.activeFrame === "frame-fire" && "🔥"}
+                </div>
+              )}
+
+              {/* Floating active badge overlay (💰, 🏦, 📈) */}
+              {user.activeBadge && (
+                <div className="absolute -bottom-1 -left-1 text-[10px] bg-slate-900/60 dark:bg-black/60 w-4 h-4 rounded-full flex items-center justify-center border border-white/20 select-none pointer-events-none">
+                  {user.activeBadge === "badge-millioner" && "💰"}
+                  {user.activeBadge === "badge-tejamkor" && "🏦"}
+                  {user.activeBadge === "badge-investor" && "📈"}
+                </div>
+              )}
+
               {/* Online indicator */}
-              <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2 border-white dark:border-neutral-900 shadow" />
+              {!user.activeBadge && (
+                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2 border-white dark:border-neutral-900 shadow" />
+              )}
             </motion.button>
           </div>
         </div>

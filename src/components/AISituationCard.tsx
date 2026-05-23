@@ -837,17 +837,17 @@ export default function AISituationCard() {
                         whileHover={{ scale: 1.02, y: -2 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => triggerChoice("spend")}
-                        className="py-4 px-5 rounded-2xl font-bold text-sm flex items-center gap-3 cursor-pointer text-left shadow-sm hover:shadow-md bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-900/50 text-rose-800 dark:text-rose-300 transition-shadow"
+                        className="py-4 px-5 rounded-2xl font-bold text-sm flex items-center gap-3 cursor-pointer text-left shadow-sm hover:shadow-md bg-slate-50 dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 text-slate-800 dark:text-neutral-200 hover:bg-slate-100 dark:hover:bg-neutral-850 transition-all duration-150"
                       >
-                        <div className="w-10 h-10 rounded-xl bg-white dark:bg-neutral-950 border border-rose-100 dark:border-rose-900/50 flex items-center justify-center flex-shrink-0">
-                          <X className="w-5 h-5 text-rose-600 dark:text-rose-400" />
+                        <div className="w-10 h-10 rounded-xl bg-indigo-500/10 dark:bg-indigo-500/20 flex items-center justify-center flex-shrink-0 font-black text-indigo-600 dark:text-indigo-400 text-lg">
+                          A
                         </div>
                         <div>
-                          <p className="font-extrabold text-rose-800 dark:text-rose-300 text-xs sm:text-sm">
+                          <p className="font-black text-slate-800 dark:text-neutral-100 text-xs sm:text-sm">
                             {scenario!.spendOption.label}
                           </p>
-                          <p className="text-[11px] text-rose-600/80 dark:text-rose-400/80 font-bold mt-0.5">
-                            {scenario!.spendOption.sublabel}
+                          <p className="text-[10px] text-slate-500 dark:text-neutral-400 font-bold mt-0.5">
+                            Ushbu qaror natijasini ko&apos;rish
                           </p>
                         </div>
                       </motion.button>
@@ -856,17 +856,17 @@ export default function AISituationCard() {
                         whileHover={{ scale: 1.02, y: -2 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => triggerChoice("save")}
-                        className="py-4 px-5 rounded-2xl font-bold text-sm flex items-center gap-3 cursor-pointer text-left shadow-sm hover:shadow-md bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/50 text-emerald-800 dark:text-emerald-300 transition-shadow"
+                        className="py-4 px-5 rounded-2xl font-bold text-sm flex items-center gap-3 cursor-pointer text-left shadow-sm hover:shadow-md bg-slate-50 dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 text-slate-800 dark:text-neutral-200 hover:bg-slate-100 dark:hover:bg-neutral-850 transition-all duration-150"
                       >
-                        <div className="w-10 h-10 rounded-xl bg-white dark:bg-neutral-950 border border-emerald-100 dark:border-emerald-900/50 flex items-center justify-center flex-shrink-0">
-                          <Check className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                        <div className="w-10 h-10 rounded-xl bg-cyan-500/10 dark:bg-cyan-500/20 flex items-center justify-center flex-shrink-0 font-black text-cyan-600 dark:text-cyan-400 text-lg">
+                          B
                         </div>
                         <div>
-                          <p className="font-extrabold text-emerald-800 dark:text-emerald-300 text-xs sm:text-sm">
+                          <p className="font-black text-slate-800 dark:text-neutral-100 text-xs sm:text-sm">
                             {scenario!.saveOption.label}
                           </p>
-                          <p className="text-[11px] text-emerald-600/80 dark:text-emerald-400/80 font-bold mt-0.5">
-                            {scenario!.saveOption.sublabel}
+                          <p className="text-[10px] text-slate-500 dark:text-neutral-400 font-bold mt-0.5">
+                            Ushbu qaror natijasini ko&apos;rish
                           </p>
                         </div>
                       </motion.button>
