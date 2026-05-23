@@ -312,9 +312,6 @@ export default function FinancesLedgerWidget() {
               <label className="block text-[10px] font-black text-slate-400 dark:text-neutral-500 uppercase tracking-widest">Kategoriya bo&apos;yicha saralash (Filtrlash):</label>
               <div className="flex gap-2 overflow-x-auto pb-1.5 pt-0.5 scrollbar-thin">
                 {allFilterCategories.map((cat) => {
-                  const hasTransactions = cat === "Barchasi" || user.transactions.some(t => t.category === cat);
-                  if (!hasTransactions) return null; // Only show filters that have transactions, keeps UI minimalist!
-
                   const active = selectedFilter === cat;
                   return (
                     <motion.button

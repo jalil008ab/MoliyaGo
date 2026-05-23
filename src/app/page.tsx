@@ -68,10 +68,10 @@ export default function Home() {
         onOpenShop={() => setIsShopOpen(true)}
       />
 
-      <main className="relative z-10 pt-20 sm:pt-24 pb-28 md:pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col gap-6">
+      <main className="relative z-10 pt-20 sm:pt-24 pb-28 lg:pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col gap-6">
         
-        {/* Desktop Segmented Tab Switcher (Visible only on medium screens and up) */}
-        <div className="hidden md:flex justify-center mt-4">
+        {/* Desktop Segmented Tab Switcher (Visible only on large screens and up) */}
+        <div className="hidden lg:flex justify-center mt-4">
           <div className="flex gap-2 p-1.5 bg-white/70 dark:bg-neutral-900/60 backdrop-blur-md rounded-2xl border border-black/5 dark:border-white/5 shadow-md">
             {navItems.map((item) => {
               const active = currentTab === item.id;
@@ -175,8 +175,8 @@ export default function Home() {
         </motion.footer>
       </main>
 
-      {/* Floating Premium Bottom Navigation Bar (Visible only on mobile/tablet viewports < md) */}
-      <div className="fixed bottom-5 left-1/2 -translate-x-1/2 w-[92%] max-w-lg z-50 md:hidden block">
+      {/* Floating Premium Bottom Navigation Bar (Visible only on mobile/tablet viewports < lg) */}
+      <div className="fixed bottom-5 left-1/2 -translate-x-1/2 w-[92%] max-w-lg z-50 lg:hidden block">
         <div className="flex justify-around items-center py-2 px-3 bg-white/75 dark:bg-[#0c0c14]/85 backdrop-blur-2xl border border-black/5 dark:border-white/5 rounded-3xl shadow-xl shadow-black/10">
           {navItems.map((item) => {
             const active = currentTab === item.id;
