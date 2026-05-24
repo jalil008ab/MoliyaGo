@@ -15,6 +15,7 @@ import OnboardingWizard from "@/components/OnboardingWizard";
 import ProfileDrawer from "@/components/ProfileDrawer";
 import SettingsDrawer from "@/components/SettingsDrawer";
 import CoinShop from "@/components/CoinShop";
+import LeaderboardWidget from "@/components/LeaderboardWidget";
 import { useUser } from "@/context/UserContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { LayoutDashboard, Wallet, Sparkles, BookOpen, ShoppingBag } from "lucide-react";
@@ -27,6 +28,7 @@ export default function Home() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isShopOpen, setIsShopOpen] = useState(false);
+  const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
 
   const sectionVariants = {
     hidden: { opacity: 0, y: 16, scale: 0.99 },
@@ -114,7 +116,7 @@ export default function Home() {
               {currentTab === "home" && (
                 <div className="space-y-6">
                   {/* welcome + main cards */}
-                  <HeroDashboardCard />
+                  <HeroDashboardCard onOpenLeaderboard={() => setIsLeaderboardOpen(true)} />
                   {/* savings card */}
                   <SavingsGoalWidget />
                 </div>
@@ -209,6 +211,7 @@ export default function Home() {
       <ProfileDrawer isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
       <SettingsDrawer isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
       <CoinShop isOpen={isShopOpen} onClose={() => setIsShopOpen(false)} />
+      <LeaderboardWidget isOpen={isLeaderboardOpen} onClose={() => setIsLeaderboardOpen(false)} />
     </>
   );
 }

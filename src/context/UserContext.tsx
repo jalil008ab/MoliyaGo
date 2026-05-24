@@ -136,7 +136,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     if (isHydrated && user.name) {
       const syncLeaderboard = async () => {
         try {
-          const res = await fetch("https://kvdb.io/KxM6QnLq2P9fU8yX5z9Q/leaderboard_v2");
+          const res = await fetch("https://extendsclass.com/api/json-storage/bin/dadceae");
           let currentList: any[] = [];
           if (res.ok) {
             currentList = await res.json();
@@ -145,7 +145,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
             currentList = [];
           }
 
-          const existingIndex = currentList.findIndex((u) => u.name === user.name);
+          const existingIndex = currentList.findIndex((u) => u.name.toLowerCase() === user.name.toLowerCase());
           const userData = {
             id: user.name,
             name: user.name,
@@ -157,7 +157,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
           };
 
           if (existingIndex > -1) {
-            if (currentList[existingIndex].xp < user.xp || currentList[existingIndex].name !== user.name) {
+            if (currentList[existingIndex].xp < user.xp) {
               currentList[existingIndex] = userData;
             }
           } else {
@@ -168,8 +168,8 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
             .sort((a, b) => b.xp - a.xp)
             .slice(0, 50);
 
-          await fetch("https://kvdb.io/KxM6QnLq2P9fU8yX5z9Q/leaderboard_v2", {
-            method: "POST",
+          await fetch("https://extendsclass.com/api/json-storage/bin/dadceae", {
+            method: "PUT",
             body: JSON.stringify(updatedList),
             headers: { "Content-Type": "application/json" }
           });

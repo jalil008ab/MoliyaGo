@@ -30,7 +30,7 @@ export default function LeaderboardWidget({ isOpen, onClose }: LeaderboardWidget
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch("https://kvdb.io/KxM6QnLq2P9fU8yX5z9Q/leaderboard_v2");
+      const res = await fetch("https://extendsclass.com/api/json-storage/bin/dadceae");
       if (!res.ok) throw new Error("Yuklab olishda xatolik yuz berdi");
       const data = await res.json();
       if (Array.isArray(data)) {

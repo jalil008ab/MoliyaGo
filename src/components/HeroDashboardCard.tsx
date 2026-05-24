@@ -3,7 +3,6 @@
 import { motion, useMotionValue, useTransform, animate, useSpring } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import { useUser } from "@/context/UserContext";
-import LeaderboardWidget from "./LeaderboardWidget";
 import { Trophy } from "lucide-react";
 
 function formatNumber(n: number): string {
@@ -159,10 +158,9 @@ function MetricCard({ delay, accentColor, glowColor, label, sublabel, value, uni
   );
 }
 
-export default function HeroDashboardCard() {
+export default function HeroDashboardCard({ onOpenLeaderboard }: { onOpenLeaderboard: () => void }) {
   const { user } = useUser();
   const [isVisible, setIsVisible] = useState(false);
-  const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
 
   useEffect(() => { setIsVisible(true); }, []);
 
@@ -313,7 +311,7 @@ export default function HeroDashboardCard() {
                 transition={{ delay: 0.35, type: "spring", stiffness: 400, damping: 20 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => setIsLeaderboardOpen(true)}
+                onClick={onOpenLeaderboard}
                 className="flex flex-col items-center px-4 py-2.5 rounded-2xl border cursor-pointer transition-all shadow-sm"
                 style={{
                   background: "linear-gradient(135deg, rgba(245,166,35,0.08), rgba(167,139,250,0.05))",
@@ -452,8 +450,7 @@ export default function HeroDashboardCard() {
         </div>
       </div>
       
-      {/* Global Leaderboard Modal/Drawer */}
-      <LeaderboardWidget isOpen={isLeaderboardOpen} onClose={() => setIsLeaderboardOpen(false)} />
+      {/* Global Leaderboard Modal/Drawer rendered at root level */}
     </motion.div>
   );
 }
