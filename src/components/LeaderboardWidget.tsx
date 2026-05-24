@@ -30,14 +30,45 @@ export default function LeaderboardWidget({ isOpen, onClose }: LeaderboardWidget
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch("https://kvdb.io/3hSshHGWKuwzg7oBsubLDp/leaderboard_v2");
+      const res = await fetch("https://kvdb.io/3hSshHGWKuwzg7oBsubLDp/?prefix=user_&values=true");
       if (!res.ok) throw new Error("Yuklab olishda xatolik yuz berdi");
-      const data = await res.json();
-      if (Array.isArray(data)) {
-        setLeaderboard(data);
-      } else {
-        setLeaderboard([]);
-      }
+      
+      const text = await res.text();
+      const lines = text.split("\n").filter(line => line.trim() !== "");
+      
+      const parsedUsers: LeaderboardUser[] = lines.map(line => {
+        const parts = line.split("=");
+        if (parts.length < 2) return null;
+        const val = parts.slice(1).join("=");
+        try {
+          const parsed = JSON.parse(val);
+          if (parsed && !parsed.deleted && parsed.name) {
+            return {
+              id: parsed.id || parsed.name,
+              name: parsed.name,
+              xp: parsed.xp || 0,
+              level: parsed.level || 1,
+              activeFrame: parsed.activeFrame,
+              activeBadge: parsed.activeBadge
+            };
+          }
+          return null;
+        } catch (e) {
+          return null;
+        }
+      }).filter(u => u !== null) as LeaderboardUser[];
+
+      // Deduplicate by name, keeping highest XP
+      const uniqueUsersMap: { [key: string]: LeaderboardUser } = {};
+      parsedUsers.forEach(u => {
+        const lowerName = u.name.toLowerCase();
+        if (!uniqueUsersMap[lowerName] || uniqueUsersMap[lowerName].xp < u.xp) {
+          uniqueUsersMap[lowerName] = u;
+        }
+      });
+
+      const finalUsersList = Object.values(uniqueUsersMap);
+      setLeaderboard(finalUsersList);
     } catch (err: any) {
       setError("Internet aloqasini tekshiring va qayta urinib ko'ring.");
     } finally {

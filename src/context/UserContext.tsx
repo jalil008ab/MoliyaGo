@@ -136,16 +136,8 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     if (isHydrated && user.name) {
       const syncLeaderboard = async () => {
         try {
-          const res = await fetch("https://kvdb.io/3hSshHGWKuwzg7oBsubLDp/leaderboard_v2");
-          let currentList: any[] = [];
-          if (res.ok) {
-            currentList = await res.json();
-          }
-          if (!Array.isArray(currentList)) {
-            currentList = [];
-          }
-
-          const existingIndex = currentList.findIndex((u) => u.name.toLowerCase() === user.name.toLowerCase());
+          const cleanName = user.name.replace(/[^a-zA-Z0-9]/g, "_");
+          const key = `user_${cleanName}`;
           const userData = {
             id: user.name,
             name: user.name,
@@ -156,21 +148,9 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
             updatedAt: Date.now()
           };
 
-          if (existingIndex > -1) {
-            if (currentList[existingIndex].xp < user.xp) {
-              currentList[existingIndex] = userData;
-            }
-          } else {
-            currentList.push(userData);
-          }
-
-          const updatedList = currentList
-            .sort((a, b) => b.xp - a.xp)
-            .slice(0, 50);
-
-          await fetch("https://kvdb.io/3hSshHGWKuwzg7oBsubLDp/leaderboard_v2", {
+          await fetch(`https://kvdb.io/3hSshHGWKuwzg7oBsubLDp/${key}`, {
             method: "POST",
-            body: JSON.stringify(updatedList),
+            body: JSON.stringify(userData),
             headers: { "Content-Type": "application/json" }
           });
         } catch (e) {
@@ -325,20 +305,13 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     if (activeName) {
       const deleteOnline = async () => {
         try {
-          const res = await fetch("https://kvdb.io/3hSshHGWKuwzg7oBsubLDp/leaderboard_v2");
-          if (res.ok) {
-            let currentList: any[] = await res.json();
-            if (Array.isArray(currentList)) {
-              const updatedList = currentList.filter(
-                (u) => u.name.toLowerCase() !== activeName.toLowerCase()
-              );
-              await fetch("https://kvdb.io/3hSshHGWKuwzg7oBsubLDp/leaderboard_v2", {
-                method: "POST",
-                body: JSON.stringify(updatedList),
-                headers: { "Content-Type": "application/json" }
-              });
-            }
-          }
+          const cleanName = activeName.replace(/[^a-zA-Z0-9]/g, "_");
+          const key = `user_${cleanName}`;
+          await fetch(`https://kvdb.io/3hSshHGWKuwzg7oBsubLDp/${key}`, {
+            method: "POST",
+            body: JSON.stringify({ deleted: true, name: activeName }),
+            headers: { "Content-Type": "application/json" }
+          });
         } catch (e) {
           // ignore
         }
