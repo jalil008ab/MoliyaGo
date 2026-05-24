@@ -131,6 +131,57 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   }, [user, isHydrated]);
 
+  // Online global leaderboard real-time synchronization
+  useEffect(() => {
+    if (isHydrated && user.name) {
+      const syncLeaderboard = async () => {
+        try {
+          const res = await fetch("https://kvdb.io/KxM6QnLq2P9fU8yX5z9Q/leaderboard_v2");
+          let currentList: any[] = [];
+          if (res.ok) {
+            currentList = await res.json();
+          }
+          if (!Array.isArray(currentList)) {
+            currentList = [];
+          }
+
+          const existingIndex = currentList.findIndex((u) => u.name === user.name);
+          const userData = {
+            id: user.name,
+            name: user.name,
+            xp: user.xp,
+            level: user.level,
+            activeFrame: user.activeFrame,
+            activeBadge: user.activeBadge,
+            updatedAt: Date.now()
+          };
+
+          if (existingIndex > -1) {
+            if (currentList[existingIndex].xp < user.xp || currentList[existingIndex].name !== user.name) {
+              currentList[existingIndex] = userData;
+            }
+          } else {
+            currentList.push(userData);
+          }
+
+          const updatedList = currentList
+            .sort((a, b) => b.xp - a.xp)
+            .slice(0, 50);
+
+          await fetch("https://kvdb.io/KxM6QnLq2P9fU8yX5z9Q/leaderboard_v2", {
+            method: "POST",
+            body: JSON.stringify(updatedList),
+            headers: { "Content-Type": "application/json" }
+          });
+        } catch (e) {
+          // fail silently
+        }
+      };
+      const timer = setTimeout(syncLeaderboard, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [user.name, user.xp, user.level, user.activeFrame, user.activeBadge, isHydrated]);
+
   const onboardUser = useCallback((data: Partial<UserData>) => {
     setUser((prev) => {
       const newUser = {
