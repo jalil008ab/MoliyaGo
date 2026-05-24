@@ -136,7 +136,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     if (isHydrated && user.name) {
       const syncLeaderboard = async () => {
         try {
-          const res = await fetch("https://extendsclass.com/api/json-storage/bin/dadceae");
+          const res = await fetch("https://kvdb.io/3hSshHGWKuwzg7oBsubLDp/leaderboard_v2");
           let currentList: any[] = [];
           if (res.ok) {
             currentList = await res.json();
@@ -168,8 +168,8 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
             .sort((a, b) => b.xp - a.xp)
             .slice(0, 50);
 
-          await fetch("https://extendsclass.com/api/json-storage/bin/dadceae", {
-            method: "PUT",
+          await fetch("https://kvdb.io/3hSshHGWKuwzg7oBsubLDp/leaderboard_v2", {
+            method: "POST",
             body: JSON.stringify(updatedList),
             headers: { "Content-Type": "application/json" }
           });
@@ -318,9 +318,34 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const resetData = useCallback(() => {
+    const activeName = user.name;
     localStorage.removeItem("moliyago_user");
     setUser(defaultUser);
-  }, []);
+
+    if (activeName) {
+      const deleteOnline = async () => {
+        try {
+          const res = await fetch("https://kvdb.io/3hSshHGWKuwzg7oBsubLDp/leaderboard_v2");
+          if (res.ok) {
+            let currentList: any[] = await res.json();
+            if (Array.isArray(currentList)) {
+              const updatedList = currentList.filter(
+                (u) => u.name.toLowerCase() !== activeName.toLowerCase()
+              );
+              await fetch("https://kvdb.io/3hSshHGWKuwzg7oBsubLDp/leaderboard_v2", {
+                method: "POST",
+                body: JSON.stringify(updatedList),
+                headers: { "Content-Type": "application/json" }
+              });
+            }
+          }
+        } catch (e) {
+          // ignore
+        }
+      };
+      deleteOnline();
+    }
+  }, [user.name]);
 
   const addNotification = useCallback((notification: Omit<Notification, "id" | "time" | "read">) => {
     const newNotif: Notification = {
