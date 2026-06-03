@@ -23,10 +23,20 @@ const PARTICLE_EMOJIS = {
 
 export default function FloatingParticles() {
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    setMounted(true);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const particles = useMemo((): Particle[] => {
+    if (isMobile) return [];
     return Array.from({ length: 20 }, (_, i) => {
       const types: Particle["type"][] = ["coin", "coin", "cash", "sparkle", "glow", "chart"];
       return {
@@ -39,9 +49,9 @@ export default function FloatingParticles() {
         type: types[i % types.length],
       };
     });
-  }, []);
+  }, [isMobile]);
 
-  if (!mounted) return null;
+  if (!mounted || isMobile) return null;
 
   return (
     <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden select-none">

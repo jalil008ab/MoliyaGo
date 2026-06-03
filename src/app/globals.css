@@ -100,8 +100,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Fast base transitions */
-*, *::before, *::after {
+/* Fast base transitions for interactive elements only, avoiding universal selector lag on mobile viewports */
+a, button, select, input, textarea, [role="button"], .transition-all {
   transition: background-color 0.15s ease, border-color 0.15s ease, color 0.1s ease, opacity 0.15s ease;
 }
 
